@@ -235,7 +235,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>847</span>
+              <span>849</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -254,7 +254,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="托管堆基础"><a href="#托管堆基础" class="headerlink" title="托管堆基础"></a>托管堆基础</h1><h2 id="分配资源"><a href="#分配资源" class="headerlink" title="分配资源"></a>分配资源</h2><p>C#要求所有对象都从<strong>托管堆</strong>分配。进程初始化时，CLR划出一个地址空间区域作为托管堆。CLR还会维护一个叫<strong>NextObjPtr</strong>的指针，该指针指向下一个对象在堆中的位置。</p>
+          <h1>托管堆基础</h1>
+<h2 id="分配资源"><a class="header-anchor" href="#分配资源">¶</a>分配资源</h2>
+<p>C#要求所有对象都从<strong>托管堆</strong>分配。进程初始化时，CLR划出一个地址空间区域作为托管堆。CLR还会维护一个叫<strong>NextObjPtr</strong>的指针，该指针指向下一个对象在堆中的位置。</p>
 <p>一个区域被非垃圾填满后，CLR会分配更多的区域出来，一直重复，直到进程地址空间被填满。(32位进程最多能分配1.5GB;64位进程最多能分配8TB)</p>
           <!--noindex-->
             <div class="post-button">

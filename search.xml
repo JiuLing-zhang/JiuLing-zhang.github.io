@@ -1,6 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>.NET托管堆和垃圾回收</title>
+    <url>/2021/02/05/NET%E6%89%98%E7%AE%A1%E5%A0%86%E5%92%8C%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/</url>
+    <content><![CDATA[<h1 id="托管堆基础"><a href="#托管堆基础" class="headerlink" title="托管堆基础"></a>托管堆基础</h1><h2 id="分配资源"><a href="#分配资源" class="headerlink" title="分配资源"></a>分配资源</h2><p>C#要求所有对象都从<strong>托管堆</strong>分配。进程初始化时，CLR划出一个地址空间区域作为托管堆。CLR还会维护一个叫<strong>NextObjPtr</strong>的指针，该指针指向下一个对象在堆中的位置。</p>
+<p>一个区域被非垃圾填满后，CLR会分配更多的区域出来，一直重复，直到进程地址空间被填满。(32位进程最多能分配1.5GB;64位进程最多能分配8TB)</p>
+<a id="more"></a>
+
+<p>c#的new关键字实际上执行了以下步骤：</p>
+<ol>
+<li>计算类型的字段所需的字节数。</li>
+<li>加上对象开销所需的字节数(每个对象有两个开销字段：<strong>类型对象指针</strong>和<strong>同步块索引</strong>)。</li>
+<li>CLR检查区域中是否有足够分配对象所需的字节数。如果有足够的空间，就在<strong>NextObjPtr</strong>处放入该对象，并且将<strong>NextObjPtr</strong>返回给类型的构造器(<strong>this</strong>)。<strong>NextObjPtr</strong>会在自身的基础上加上对象占用的字节数来得到一个新值，即下一个对象的地址。</li>
+</ol>
+<p><img src="https://i.loli.net/2021/02/01/uGlTUWacveLp7bx.png" alt="初始化托管堆"></p>
+<h2 id="垃圾回收算法"><a href="#垃圾回收算法" class="headerlink" title="垃圾回收算法"></a>垃圾回收算法</h2><p>CLR的垃圾回收机制采用的是<strong>引用跟踪算法</strong>，该算法只关心引用类型的变量，因为只有这种变量才能引用堆上的对象。我们将所有这些引用类型的变量称为<strong>根</strong>。</p>
+<p>垃圾回收的机制有以下步骤：</p>
+<ol>
+<li>垃圾回收开始时，CLR首先暂停所有线程(防止检查期间对象状态改变)。</li>
+<li>进入标记阶段，CLR遍历堆上的所有对象，并将同步块索引中的某一位设置为0(标记为0时表示对象需要被删除)。</li>
+<li>CLR检查所有<strong>根</strong>，如果这个根引用了堆上的对象，那么CLR会标记这个对象，将同步块索引的值修改为1。如果一个对象被标记，CLR还会检查那个对象中的根，标记他们引用的对象。<br>如下图，B对象含有一个E对象的引用，标记B对象的同时也会标记E对象。</li>
+</ol>
+<p><img src="https://i.loli.net/2021/02/01/RLEY5iZUDfWQn9c.png" alt="垃圾回收前的堆状态"></p>
+<ol start="4">
+<li>检查完成后，堆中的对象分为已标记和未标记两种状态。</li>
+</ol>
+<ul>
+<li>已标记的对象不能被垃圾回收，因为有根的引用，我们成为<strong>可达</strong>。</li>
+<li>未标记的对象将被回收，因为已经没有根的引用，我们成为<strong>不可达</strong>。</li>
+</ul>
+<ol start="5">
+<li>CLR进入(压缩)阶段，首先将<strong>可达</strong>的部分连续排列。在压缩过程中，因为会移动对象在内存中的位置，所以CLR还需要重新为每个对象计算新的指针位置。压缩完成后，<strong>NextObjPtr</strong>将指向最后一个<strong>可达</strong>对象的位置。</li>
+</ol>
+<p><img src="https://i.loli.net/2021/02/01/bQlMRgHjqxfsO9C.png" alt="压缩后的堆状态"></p>
+]]></content>
+      <categories>
+        <category>.NET</category>
+      </categories>
+      <tags>
+        <tag>.NET</tag>
+        <tag>垃圾回收</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SQL查询用逗号分隔的数据</title>
     <url>/2021/02/04/SQL%E6%9F%A5%E8%AF%A2%E7%94%A8%E9%80%97%E5%8F%B7%E5%88%86%E9%9A%94%E7%9A%84%E6%95%B0%E6%8D%AE/</url>
     <content><![CDATA[<h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><p>不同的商品使用逗号分隔保存，现在要求输入指定的商品名称，能够查询到包含该商品的列。</p>
@@ -32,6 +74,8 @@
 <td>2K701,K702</td>
 </tr>
 </tbody></table>
+<a id="more"></a>
+
 <h1 id="解决思路"><a href="#解决思路" class="headerlink" title="解决思路"></a>解决思路</h1><ul>
 <li>方法1：将商品列按照逗号分隔后列转行，然后在转换后的集合里查找符合条件的商品，最后用行ID去原始表反查</li>
 <li>方法2: 将每一个商品名称格式化成 <code>,*,</code> 形式，然后使用like查询 <code>like &#39;%,*,%&#39;</code></li>
@@ -41,14 +85,14 @@
 <p>添加数据</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> dbo.TestQuery(id,k_value)<span class="keyword">VALUES</span>(<span class="number">1</span>,<span class="string">&#x27;K701&#x27;</span>)</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> dbo.TestQuery(id,k_value)<span class="keyword">VALUES</span>(<span class="number">2</span>,<span class="string">&#x27;K701,K702&#x27;</span>)</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> dbo.TestQuery(id,k_value)<span class="keyword">VALUES</span>(<span class="number">3</span>,<span class="string">&#x27;K701B,K701C&#x27;</span>)</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> dbo.TestQuery(id,k_value)<span class="keyword">VALUES</span>(<span class="number">4</span>,<span class="string">&#x27;2K701,K702&#x27;</span>)</span><br></pre></td></tr></table></figure>
 <h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><h2 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a>方法1</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">DECLARE</span> <span class="variable">@query</span>_key NVARCHAR(<span class="number">10</span>);</span><br><span class="line"><span class="keyword">SET</span> <span class="variable">@query</span>_key <span class="operator">=</span> <span class="string">&#x27;K701&#x27;</span>;</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> dbo.TestQuery</span><br><span class="line"><span class="keyword">WHERE</span> id <span class="keyword">IN</span> (</span><br><span class="line">                <span class="keyword">SELECT</span> C.id</span><br><span class="line">                <span class="keyword">FROM</span></span><br><span class="line">                (</span><br><span class="line">                    <span class="keyword">SELECT</span> A.id,</span><br><span class="line">                           B.k_value</span><br><span class="line">                    <span class="keyword">FROM</span></span><br><span class="line">                    (</span><br><span class="line">                        <span class="keyword">SELECT</span> id,</span><br><span class="line">                               <span class="keyword">CONVERT</span>(XML, <span class="string">&#x27;&lt;root&gt;&lt;v&gt;&#x27;</span> <span class="operator">+</span> REPLACE(k_value, <span class="string">&#x27;,&#x27;</span>, <span class="string">&#x27;&lt;/v&gt;&lt;v&gt;&#x27;</span>) <span class="operator">+</span> <span class="string">&#x27;&lt;/v&gt;&lt;/root&gt;&#x27;</span>) <span class="keyword">AS</span> k_value</span><br><span class="line">                        <span class="keyword">FROM</span> TestQuery</span><br><span class="line">                    ) A</span><br><span class="line">                        <span class="keyword">OUTER</span> APPLY</span><br><span class="line">                    (</span><br><span class="line">                        <span class="keyword">SELECT</span> id,</span><br><span class="line">                               N.v.value(<span class="string">&#x27;.&#x27;</span>, <span class="string">&#x27;varchar(100)&#x27;</span>) <span class="keyword">AS</span> k_value</span><br><span class="line">                        <span class="keyword">FROM</span> A.k_value.nodes(<span class="string">&#x27;/root/v&#x27;</span>) N(v)</span><br><span class="line">                    ) B</span><br><span class="line">                ) C</span><br><span class="line">                <span class="keyword">WHERE</span> C.k_value <span class="operator">=</span> <span class="variable">@query</span>_key</span><br><span class="line">            );</span><br></pre></td></tr></table></figure>
-<h2 id="方法2"><a href="#方法2" class="headerlink" title="方法2"></a>方法2</h2><blockquote>这个方法中，我把分隔符逗号定义成了变量，因为直接拼接进sql中看起来不美观，如果为了简洁可以不使用变量</blockquote>
-
+<h2 id="方法2"><a href="#方法2" class="headerlink" title="方法2"></a>方法2</h2><p>这个方法中，我把分隔符逗号定义成了变量，因为直接拼接进sql中看起来不美观，如果为了简洁可以不使用变量</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">DECLARE</span> <span class="variable">@split</span>_char NVARCHAR(<span class="number">10</span>);</span><br><span class="line"><span class="keyword">DECLARE</span> <span class="variable">@query</span>_key NVARCHAR(<span class="number">10</span>);</span><br><span class="line"><span class="keyword">SET</span> <span class="variable">@split</span>_char <span class="operator">=</span> <span class="string">&#x27;,&#x27;</span>;</span><br><span class="line"><span class="keyword">SET</span> <span class="variable">@query</span>_key <span class="operator">=</span> <span class="string">&#x27;K702&#x27;</span>;</span><br><span class="line"><span class="keyword">SELECT</span> A.id,</span><br><span class="line">       <span class="built_in">SUBSTRING</span>(A.k_value, <span class="number">2</span>, LEN(A.k_value) <span class="operator">-</span> <span class="number">2</span>) <span class="keyword">AS</span> k_value</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">(</span><br><span class="line">    <span class="keyword">SELECT</span> id,</span><br><span class="line">           <span class="variable">@split</span>_char <span class="operator">+</span> k_value <span class="operator">+</span> <span class="variable">@split</span>_char <span class="keyword">AS</span> k_value</span><br><span class="line">    <span class="keyword">FROM</span> dbo.TestQuery</span><br><span class="line">) A</span><br><span class="line"><span class="keyword">WHERE</span> A.k_value <span class="keyword">LIKE</span> <span class="string">&#x27;%&#x27;</span> <span class="operator">+</span> <span class="variable">@split</span>_char <span class="operator">+</span> <span class="variable">@query</span>_key <span class="operator">+</span> <span class="variable">@split</span>_char <span class="operator">+</span> <span class="string">&#x27;%&#x27;</span>;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>SQL Server</category>
       </categories>
       <tags>
-        <tag>SQL技巧 常用语句</tag>
+        <tag>SQL技巧</tag>
+        <tag>常用语句</tag>
       </tags>
   </entry>
 </search>

@@ -36,6 +36,8 @@
 <li>CLR进入(压缩)阶段，首先将<strong>可达</strong>的部分连续排列。在压缩过程中，因为会移动对象在内存中的位置，所以CLR还需要重新为每个对象计算新的指针位置。压缩完成后，<strong>NextObjPtr</strong>将指向最后一个<strong>可达</strong>对象的位置。</li>
 </ol>
 <p><img src="https://i.loli.net/2021/02/01/bQlMRgHjqxfsO9C.png" alt="压缩后的堆状态"></p>
+<p>这部分只是简单介绍下托管堆的初始化和垃圾回收的基本算法。<br>
+后面会继续开文章或者补充具体每一代是如何进行垃圾回收的。</p>
 ]]></content>
       <categories>
         <category>.NET</category>

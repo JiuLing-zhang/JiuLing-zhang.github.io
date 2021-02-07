@@ -20,30 +20,41 @@
     var CONFIG = {"hostname":"jiuling.me","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="一个灵活的胖子">
-<meta property="og:type" content="website">
-<meta property="og:title" content="码术">
-<meta property="og:url" content="http://jiuling.me/index.html">
+  <meta name="description" content="¶起源 一切都要从那个线上bug说起，执行 decimal.TryParse 时程序并没有按照预期输出结果💔💔💔 1234567891011string input &#x3D; &quot;1,2,3&quot;;decimal output;if (decimal.TryParse(input, out output))&amp;#123;    Console.WriteLine($&quot;&amp;#12">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C# decimal.TryParse时字符串有逗号的坑">
+<meta property="og:url" content="http://jiuling.me/2021/02/06/C-decimal-TryParse%E6%97%B6%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9C%89%E9%80%97%E5%8F%B7%E7%9A%84%E5%9D%91/index.html">
 <meta property="og:site_name" content="码术">
-<meta property="og:description" content="一个灵活的胖子">
+<meta property="og:description" content="¶起源 一切都要从那个线上bug说起，执行 decimal.TryParse 时程序并没有按照预期输出结果💔💔💔 1234567891011string input &#x3D; &quot;1,2,3&quot;;decimal output;if (decimal.TryParse(input, out output))&amp;#123;    Console.WriteLine($&quot;&amp;#12">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/06/Hwfr16SxCT38yJm.png">
+<meta property="og:image" content="https://i.loli.net/2021/02/06/JTMPyn4KHRS7a3X.png">
+<meta property="og:image" content="https://i.loli.net/2021/02/06/yYKFJgzOPRL5BpA.png">
+<meta property="og:image" content="https://i.loli.net/2021/02/06/TdZWN3b5fV7vDnh.png">
+<meta property="og:image" content="https://i.loli.net/2021/02/06/A19HK32ZukCyTOP.png">
+<meta property="og:image" content="https://i.loli.net/2021/02/07/v6e721mcqQW5Vgz.png">
+<meta property="og:image" content="https://i.loli.net/2021/02/07/zLW6NXwUioxe2af.png">
+<meta property="article:published_time" content="2021-02-06T01:33:13.000Z">
+<meta property="article:modified_time" content="2021-02-07T12:32:59.120Z">
 <meta property="article:author" content="九零">
+<meta property="article:tag" content="C#">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/06/Hwfr16SxCT38yJm.png">
 
-<link rel="canonical" href="http://jiuling.me/">
+<link rel="canonical" href="http://jiuling.me/2021/02/06/C-decimal-TryParse%E6%97%B6%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9C%89%E9%80%97%E5%8F%B7%E7%9A%84%E5%9D%91/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>码术</title>
+  <title>C# decimal.TryParse时字符串有逗号的坑 | 码术</title>
   
 
 
@@ -186,9 +197,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
@@ -204,10 +216,9 @@
       <meta itemprop="name" content="码术">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/02/06/C-decimal-TryParse%E6%97%B6%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9C%89%E9%80%97%E5%8F%B7%E7%9A%84%E5%9D%91/" class="post-title-link" itemprop="url">C# decimal.TryParse时字符串有逗号的坑</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          C# decimal.TryParse时字符串有逗号的坑
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -260,130 +271,93 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="起源"><a class="header-anchor" href="#起源">¶</a>起源</h2>
+        <h2 id="起源"><a class="header-anchor" href="#起源">¶</a>起源</h2>
 <p>一切都要从那个线上bug说起，执行 decimal.TryParse 时程序并没有按照预期输出结果💔💔💔</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> input = <span class="string">&quot;1,2,3&quot;</span>;</span><br><span class="line"><span class="built_in">decimal</span> output;</span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">decimal</span>.TryParse(input, <span class="keyword">out</span> output))</span><br><span class="line">&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;output&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;Unable to decimal <span class="subst">&#123;input&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//这里意外的输出了 123</span></span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/02/06/C-decimal-TryParse%E6%97%B6%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9C%89%E9%80%97%E5%8F%B7%E7%9A%84%E5%9D%91/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
+<a id="more"></a>
+<p>因为按照我的理解这里是不能成功转换的，所以排查问题的着重点根本就没放在这，以至于整个排查过程也显得颇为辛苦。</p>
+<h2 id="查看究竟"><a class="header-anchor" href="#查看究竟">¶</a>查看究竟</h2>
+<p>去MSDN上翻帮助文档，发现TryParse有这样一个重载方法<br>
+<img src="https://i.loli.net/2021/02/06/Hwfr16SxCT38yJm.png" alt="TryParse示例1.png"></p>
+<p>看到Globalization的时候就知道凉了一半，在往下看示例，果然，<strong>货币符号</strong> 、<strong>千分位</strong> 、<strong>小数点</strong> 全出来了。<br>
+<img src="https://i.loli.net/2021/02/06/JTMPyn4KHRS7a3X.png" alt="TryParse示例2.png"></p>
+<p>现在问题很明显了，我的代码没有转换失败很有可能就是因为<strong>逗号被识别成了千分位</strong>。<br>
+反编译一下，发现转换的时候确实使用了一个默认值 System.Globalization.NumberStyles.Number。<br>
+<img src="https://i.loli.net/2021/02/06/yYKFJgzOPRL5BpA.png" alt="TryParse示例3.png"></p>
+<p>继续来看这个枚举值，微软官方文档里给的说明如下：</p>
+<blockquote>
+<p>指示使用 AllowLeadingWhite、AllowTrailingWhite、AllowLeadingSign、AllowTrailingSign、AllowDecimalPoint 和 AllowThousands 样式。 这是复合数字样式。<br>
+<img src="https://i.loli.net/2021/02/06/TdZWN3b5fV7vDnh.png" alt="TryParse示例4.png"></p>
+</blockquote>
+<p>我们从最后一个类型 <strong>AllowThousands</strong> 可以看出来，默认确实使用了千分位，所以在上述示例中&quot;1,2,3&quot;的确能够成功的完成转换。</p>
+<h2 id="问题延申"><a class="header-anchor" href="#问题延申">¶</a>问题延申</h2>
+<p>默认使用了千分位解析没错，但是&quot;1,2,3&quot;这个字符串的逗号也没在实际的千分位位置，这又是咋回事呢，想不通。😨😨😨</p>
+<p>继续往下看，看看 <strong>AllowThousands</strong> 又是如何定义的。</p>
+<blockquote>
+<p>指示数字字符串可以具有组分隔符，例如将百位与千位分隔开来的符号。 如果 NumberStyles 值包括 AllowCurrencySymbol 标志，要分析的字符串包括货币符号，则有效组分隔符字符由 CurrencyGroupSeparator 属性确定，且每个组中的位数由 CurrencyGroupSizes 属性确定。 否则，有效的组分隔符字符由 NumberGroupSeparator 属性确定，每组的位数由 NumberGroupSizes 属性确定。</p>
+</blockquote>
+<p>从文档中我们知道每组数字的位数由 <strong>NumberGroupSizes</strong> 来决定。<br>
+回过头来继续看刚才反编译的代码，FormatInfo的参数使用的<strong>NumberFormatInfo.CurrentInfo</strong>，现在我们看下<strong>NumberGroupSizes</strong>的值到底是多少（调试发现默认千分位每组的位数是3）。<br>
+<img src="https://i.loli.net/2021/02/06/A19HK32ZukCyTOP.png" alt="TryParse示例5.png"></p>
+<p>到这里我已经是摸不到头绪了，所以去网上搜索了一下，但是结果也不理想，总结一下网上就两种结论：</p>
+<ol>
+<li>有逗号时可以转换成功</li>
+<li>如果要验证千分位的位置，使用正则来辅助</li>
+</ol>
+<h2 id="打破砂锅干到底"><a class="header-anchor" href="#打破砂锅干到底">¶</a>打破砂锅干到底</h2>
+<p>网上找不到满意的答案，那就只能研究一下.Net的源码了，所以我对 decimal.TryParse 方法进行了调试，终于弄清了这个原因。下面放一部分关键代码：</p>
+<p><img src="https://i.loli.net/2021/02/07/v6e721mcqQW5Vgz.png" alt="TryParse示例6.png"><br>
+<img src="https://i.loli.net/2021/02/07/zLW6NXwUioxe2af.png" alt="TryParse示例7.png"></p>
+<p>实际上在转换的时候，.NET将需要转换的字符串转换成了字符指针，然后一位一位的去做对比。当要对比的字符等于千分位的分隔符时直接跳过，继续对比下一位。因此，不管字符串中有多少个分隔符都是可以转换的，比如下面这个例子：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">decimal</span> <span class="keyword">value</span> = <span class="built_in">decimal</span>.Parse(<span class="string">&quot;1,,,,,,,2,,,,3&quot;</span>);</span><br><span class="line">Console.WriteLine(<span class="keyword">value</span>);</span><br><span class="line"><span class="comment">//输出 123</span></span><br></pre></td></tr></table></figure>
+<p>当然，实际上这个转换的过程远比我描述的复杂，我这里只是针对性的分析了一下而已。<br>
+至此，整个问题都找到了答案，圆满收官😏😏</p>
+
     </div>
 
     
     
     
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>九零
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://jiuling.me/2021/02/06/C-decimal-TryParse%E6%97%B6%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9C%89%E9%80%97%E5%8F%B7%E7%9A%84%E5%9D%91/" title="C# decimal.TryParse时字符串有逗号的坑">http://jiuling.me/2021/02/06/C-decimal-TryParse时字符串有逗号的坑/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://jiuling.me/2021/02/05/NET%E6%89%98%E7%AE%A1%E5%A0%86%E5%92%8C%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/HeadImg.jpg">
-      <meta itemprop="name" content="九零">
-      <meta itemprop="description" content="一个灵活的胖子">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="码术">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/02/05/NET%E6%89%98%E7%AE%A1%E5%A0%86%E5%92%8C%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" class="post-title-link" itemprop="url">.NET托管堆和垃圾回收</a>
-        </h2>
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"><i class="fa fa-tag"></i> C#</a>
+          </div>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-02-05 21:55:58" itemprop="dateCreated datePublished" datetime="2021-02-05T21:55:58+08:00">2021-02-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-02-07 20:32:45" itemprop="dateModified" datetime="2021-02-07T20:32:45+08:00">2021-02-07</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/NET/" itemprop="url" rel="index"><span itemprop="name">.NET</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>906</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="托管堆基础"><a class="header-anchor" href="#托管堆基础">¶</a>托管堆基础</h2>
-<h3 id="分配资源"><a class="header-anchor" href="#分配资源">¶</a>分配资源</h3>
-<p>C#要求所有对象都从<strong>托管堆</strong>分配。进程初始化时，CLR划出一个地址空间区域作为托管堆。CLR还会维护一个叫<strong>NextObjPtr</strong>的指针，该指针指向下一个对象在堆中的位置。</p>
-<p>一个区域被非垃圾填满后，CLR会分配更多的区域出来，一直重复，直到进程地址空间被填满。(32位进程最多能分配1.5GB;64位进程最多能分配8TB)</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/02/05/NET%E6%89%98%E7%AE%A1%E5%A0%86%E5%92%8C%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/02/05/NET%E6%89%98%E7%AE%A1%E5%A0%86%E5%92%8C%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" rel="prev" title=".NET托管堆和垃圾回收">
+      <i class="fa fa-chevron-left"></i> .NET托管堆和垃圾回收
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
       </footer>
+    
   </article>
   
   
-  
-
-
   
 
 
@@ -436,6 +410,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B5%B7%E6%BA%90"><span class="nav-number">1.</span> <span class="nav-text">起源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E7%A9%B6%E7%AB%9F"><span class="nav-number">2.</span> <span class="nav-text">查看究竟</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E5%BB%B6%E7%94%B3"><span class="nav-number">3.</span> <span class="nav-text">问题延申</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%93%E7%A0%B4%E7%A0%82%E9%94%85%E5%B9%B2%E5%88%B0%E5%BA%95"><span class="nav-number">4.</span> <span class="nav-text">打破砂锅干到底</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

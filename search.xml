@@ -1,10 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>C# decimal.TryParse时字符串有逗号的坑</title>
+    <url>/2021/02/06/C-decimal-TryParse%E6%97%B6%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9C%89%E9%80%97%E5%8F%B7%E7%9A%84%E5%9D%91/</url>
+    <content><![CDATA[<h2 id="起源"><a class="header-anchor" href="#起源">¶</a>起源</h2>
+<p>一切都要从那个线上bug说起，执行 decimal.TryParse 时程序并没有按照预期输出结果💔💔💔</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="built_in">string</span> input = <span class="string">&quot;1,2,3&quot;</span>;</span><br><span class="line"><span class="built_in">decimal</span> output;</span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">decimal</span>.TryParse(input, <span class="keyword">out</span> output))</span><br><span class="line">&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;output&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;Unable to decimal <span class="subst">&#123;input&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//这里意外的输出了 123</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>因为按照我的理解这里是不能成功转换的，所以排查问题的着重点根本就没放在这，以至于整个排查过程也显得颇为辛苦。</p>
+<h2 id="查看究竟"><a class="header-anchor" href="#查看究竟">¶</a>查看究竟</h2>
+<p>去MSDN上翻帮助文档，发现TryParse有这样一个重载方法<br>
+<img src="https://i.loli.net/2021/02/06/Hwfr16SxCT38yJm.png" alt="TryParse示例1.png"></p>
+<p>看到Globalization的时候就知道凉了一半，在往下看示例，果然，<strong>货币符号</strong> 、<strong>千分位</strong> 、<strong>小数点</strong> 全出来了。<br>
+<img src="https://i.loli.net/2021/02/06/JTMPyn4KHRS7a3X.png" alt="TryParse示例2.png"></p>
+<p>现在问题很明显了，我的代码没有转换失败很有可能就是因为<strong>逗号被识别成了千分位</strong>。<br>
+反编译一下，发现转换的时候确实使用了一个默认值 System.Globalization.NumberStyles.Number。<br>
+<img src="https://i.loli.net/2021/02/06/yYKFJgzOPRL5BpA.png" alt="TryParse示例3.png"></p>
+<p>继续来看这个枚举值，微软官方文档里给的说明如下：</p>
+<blockquote>
+<p>指示使用 AllowLeadingWhite、AllowTrailingWhite、AllowLeadingSign、AllowTrailingSign、AllowDecimalPoint 和 AllowThousands 样式。 这是复合数字样式。<br>
+<img src="https://i.loli.net/2021/02/06/TdZWN3b5fV7vDnh.png" alt="TryParse示例4.png"></p>
+</blockquote>
+<p>我们从最后一个类型 <strong>AllowThousands</strong> 可以看出来，默认确实使用了千分位，所以在上述示例中&quot;1,2,3&quot;的确能够成功的完成转换。</p>
+<h2 id="问题延申"><a class="header-anchor" href="#问题延申">¶</a>问题延申</h2>
+<p>默认使用了千分位解析没错，但是&quot;1,2,3&quot;这个字符串的逗号也没在实际的千分位位置，这又是咋回事呢，想不通。😨😨😨</p>
+<p>继续往下看，看看 <strong>AllowThousands</strong> 又是如何定义的。</p>
+<blockquote>
+<p>指示数字字符串可以具有组分隔符，例如将百位与千位分隔开来的符号。 如果 NumberStyles 值包括 AllowCurrencySymbol 标志，要分析的字符串包括货币符号，则有效组分隔符字符由 CurrencyGroupSeparator 属性确定，且每个组中的位数由 CurrencyGroupSizes 属性确定。 否则，有效的组分隔符字符由 NumberGroupSeparator 属性确定，每组的位数由 NumberGroupSizes 属性确定。</p>
+</blockquote>
+<p>从文档中我们知道每组数字的位数由 <strong>NumberGroupSizes</strong> 来决定。<br>
+回过头来继续看刚才反编译的代码，FormatInfo的参数使用的<strong>NumberFormatInfo.CurrentInfo</strong>，现在我们看下<strong>NumberGroupSizes</strong>的值到底是多少（调试发现默认千分位每组的位数是3）。<br>
+<img src="https://i.loli.net/2021/02/06/A19HK32ZukCyTOP.png" alt="TryParse示例5.png"></p>
+<p>到这里我已经是摸不到头绪了，所以去网上搜索了一下，但是结果也不理想，总结一下网上就两种结论：</p>
+<ol>
+<li>有逗号时可以转换成功</li>
+<li>如果要验证千分位的位置，使用正则来辅助</li>
+</ol>
+<h2 id="打破砂锅干到底"><a class="header-anchor" href="#打破砂锅干到底">¶</a>打破砂锅干到底</h2>
+<p>网上找不到满意的答案，那就只能研究一下.Net的源码了，所以我对 decimal.TryParse 方法进行了调试，终于弄清了这个原因。下面放一部分关键代码：</p>
+<p><img src="https://i.loli.net/2021/02/07/v6e721mcqQW5Vgz.png" alt="TryParse示例6.png"><br>
+<img src="https://i.loli.net/2021/02/07/zLW6NXwUioxe2af.png" alt="TryParse示例7.png"></p>
+<p>实际上在转换的时候，.NET将需要转换的字符串转换成了字符指针，然后一位一位的去做对比。当要对比的字符等于千分位的分隔符时直接跳过，继续对比下一位。因此，不管字符串中有多少个分隔符都是可以转换的，比如下面这个例子：</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="built_in">decimal</span> <span class="keyword">value</span> = <span class="built_in">decimal</span>.Parse(<span class="string">&quot;1,,,,,,,2,,,,3&quot;</span>);</span><br><span class="line">Console.WriteLine(<span class="keyword">value</span>);</span><br><span class="line"><span class="comment">//输出 123</span></span><br></pre></td></tr></table></figure>
+<p>当然，实际上这个转换的过程远比我描述的复杂，我这里只是针对性的分析了一下而已。<br>
+至此，整个问题都找到了答案，圆满收官😏😏</p>
+]]></content>
+      <categories>
+        <category>那些年里的那些坑</category>
+      </categories>
+      <tags>
+        <tag>C#</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>.NET托管堆和垃圾回收</title>
     <url>/2021/02/05/NET%E6%89%98%E7%AE%A1%E5%A0%86%E5%92%8C%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/</url>
-    <content><![CDATA[<h1>托管堆基础</h1>
-<h2 id="分配资源"><a class="header-anchor" href="#分配资源">¶</a>分配资源</h2>
+    <content><![CDATA[<h2 id="托管堆基础"><a class="header-anchor" href="#托管堆基础">¶</a>托管堆基础</h2>
+<h3 id="分配资源"><a class="header-anchor" href="#分配资源">¶</a>分配资源</h3>
 <p>C#要求所有对象都从<strong>托管堆</strong>分配。进程初始化时，CLR划出一个地址空间区域作为托管堆。CLR还会维护一个叫<strong>NextObjPtr</strong>的指针，该指针指向下一个对象在堆中的位置。</p>
 <p>一个区域被非垃圾填满后，CLR会分配更多的区域出来，一直重复，直到进程地址空间被填满。(32位进程最多能分配1.5GB;64位进程最多能分配8TB)</p>
 <a id="more"></a>
@@ -15,7 +67,7 @@
 <li>CLR检查区域中是否有足够分配对象所需的字节数。如果有足够的空间，就在<strong>NextObjPtr</strong>处放入该对象，并且将<strong>NextObjPtr</strong>返回给类型的构造器(<strong>this</strong>)。<strong>NextObjPtr</strong>会在自身的基础上加上对象占用的字节数来得到一个新值，即下一个对象的地址。</li>
 </ol>
 <p><img src="https://i.loli.net/2021/02/01/uGlTUWacveLp7bx.png" alt="初始化托管堆"></p>
-<h2 id="垃圾回收算法"><a class="header-anchor" href="#垃圾回收算法">¶</a>垃圾回收算法</h2>
+<h3 id="垃圾回收算法"><a class="header-anchor" href="#垃圾回收算法">¶</a>垃圾回收算法</h3>
 <p>CLR的垃圾回收机制采用的是<strong>引用跟踪算法</strong>，该算法只关心引用类型的变量，因为只有这种变量才能引用堆上的对象。我们将所有这些引用类型的变量称为<strong>根</strong>。</p>
 <p>垃圾回收的机制有以下步骤：</p>
 <ol>
@@ -43,6 +95,7 @@
         <category>.NET</category>
       </categories>
       <tags>
+        <tag>C#</tag>
         <tag>.NET</tag>
         <tag>垃圾回收</tag>
       </tags>

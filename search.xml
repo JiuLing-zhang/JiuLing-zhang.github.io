@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>C# decimal.TryParse时字符串有逗号的坑</title>
-    <url>/2021/02/06/C-decimal-TryParse%E6%97%B6%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9C%89%E9%80%97%E5%8F%B7%E7%9A%84%E5%9D%91/</url>
+    <title>C#使用decimal.TryParse转换时，字符串中有逗号的坑</title>
+    <url>/2021/02/06/C-%E4%BD%BF%E7%94%A8decimal-TryParse%E8%BD%AC%E6%8D%A2%E6%97%B6%EF%BC%8C%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E6%9C%89%E9%80%97%E5%8F%B7%E7%9A%84%E5%9D%91/</url>
     <content><![CDATA[<h2 id="起源"><a class="header-anchor" href="#起源">¶</a>起源</h2>
 <p>一切都要从那个线上bug说起，执行 decimal.TryParse 时程序并没有按照预期输出结果💔💔💔</p>
 <figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="built_in">string</span> input = <span class="string">&quot;1,2,3&quot;</span>;</span><br><span class="line"><span class="built_in">decimal</span> output;</span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">decimal</span>.TryParse(input, <span class="keyword">out</span> output))</span><br><span class="line">&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;output&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;Unable to decimal <span class="subst">&#123;input&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//这里意外的输出了 123</span></span><br></pre></td></tr></table></figure>

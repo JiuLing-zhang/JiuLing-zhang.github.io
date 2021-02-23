@@ -1,14 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>设计模式-代理模式</title>
+    <url>/2021/02/23/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/</url>
+    <content><![CDATA[<p><strong>定义</strong> 为其他对象提供一个代理通道，来完成对这个对象的访问。<br>
+<strong>类型</strong> 结构型模式<br>
+<strong>特点</strong> 可以对调用者隐藏实际对象。<br>
+<strong>举例</strong> 张三替李四追求王五。</p>
+<p>本文以C#为例，先来看类图🔻</p>
+<a id="more"></a>
+<p><img src="https://i.loli.net/2021/02/23/D3Xc2YAfgM9OJer.jpg" alt="设计模式-代理模式.jpg"></p>
+<p>代理模式还是相对比较简单和容易理解的，所以我们直接看具体的代码实现🔻</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 定义一个代理和真实类共用的接口</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">LoveBase</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">SendLove</span>(<span class="params"></span>)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 代理类</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ProxyLove</span> : <span class="title">LoveBase</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> RealLove _realLove;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">SendLove</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="comment">//初始化真实的表白对象，并调用真实的表白方法</span></span><br><span class="line">        _realLove ??= <span class="keyword">new</span> RealLove();</span><br><span class="line">        _realLove.SendLove();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 真实的表白类</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">RealLove</span> : <span class="title">LoveBase</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">SendLove</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        Console.WriteLine(<span class="string">&quot;张三真实的表白&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="comment">//客户端调用</span></span><br><span class="line">LoveBase love = <span class="keyword">new</span> ProxyLove();</span><br><span class="line">love.SendLove();</span><br><span class="line"><span class="comment">//结果输出 张三真实的表白</span></span><br></pre></td></tr></table></figure>
+<p>参考资料：<br>
+《大话设计模式》</p>
+]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>C#</tag>
+        <tag>设计模式</tag>
+        <tag>代理模式</tag>
+        <tag>结构型模式</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>设计模式-策略模式</title>
     <url>/2021/02/19/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/</url>
-    <content><![CDATA[<p>策略模式实际上是定义了一系列算法，他们可以相互替换，但是并不影响算法的调用者。<br>
-例如：超市结账时，使用不同的优惠方式进行结算。</p>
-<p>本文以C#为例来说明超市结账的策略模式实现，直接上类图🔻<br>
-<img src="https://i.loli.net/2021/02/19/U6MiXEn1dYmp2Ob.jpg" alt="设计模式-策略模式.jpg"></p>
+    <content><![CDATA[<p><strong>定义</strong> 策略模式实际上是定义了一系列算法，他们可以相互替换，但是并不影响算法的调用者。<br>
+<strong>类型</strong> 行为型模式<br>
+<strong>特点</strong> 算法可以相互替换，并不相互影响，具体算法也不会暴露给调用者。<br>
+<strong>举例</strong> 超市结账时，使用不同的优惠方式进行结算。</p>
+<p>本文以C#为例，先来看类图🔻</p>
 <a id="more"></a>
-<p>CashContext主要用于维护一个策略对象。<br>
+<p><img src="https://i.loli.net/2021/02/19/U6MiXEn1dYmp2Ob.jpg" alt="设计模式-策略模式.jpg"><br>
+CashContext主要用于维护一个策略对象。<br>
 CashNormal（正常结算）、CashDiscount（折扣结算）、StrategyReturn（满减结算）均继承自CashStrategy，代表具体的策略实现。</p>
 <p>这个时候如果又需要开发一个新的结算策略时，只需要继承抽象策略，然后实现新的算法即可。</p>
 <p>下面我们来看具体的代码实现🔻</p>
@@ -31,17 +61,20 @@ CashNormal（正常结算）、CashDiscount（折扣结算）、StrategyReturn�
         <tag>C#</tag>
         <tag>设计模式</tag>
         <tag>策略模式</tag>
+        <tag>行为型模式</tag>
       </tags>
   </entry>
   <entry>
     <title>设计模式-简单工厂模式</title>
     <url>/2021/02/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</url>
-    <content><![CDATA[<p>闲言少叙，书归正传。<br>
-所谓工厂，其实就是用单独一个类来创建具体实例的过程。使用工厂可以减少代码的耦合性，使代码的可维护性变高。遇到新的需求时，只要新增一个功能的实现，然后通过工厂将实例构建出来即可。<br>
-本文以两个数字的加减乘除作为Demo来实现（代码为C#），直接上类图：<br>
-<img src="https://i.loli.net/2021/02/18/iGabpmZIz6swuX2.jpg" alt="设计模式-简单工厂模式.jpg"></p>
+    <content><![CDATA[<p><strong>定义</strong> 用单独一个类来创建具体实例的过程。<br>
+<strong>类型</strong> 创建型模式<br>
+<strong>特点</strong> 使用工厂可以减少代码的耦合性，使代码的可维护性变高。遇到新的需求时，只要新增一个功能的实现，然后通过工厂将实例构建出来即可。<br>
+<strong>举例</strong> 实现两个数字的计算，运用工厂分别创建计算加、减、乘、除的不同实例。</p>
+<p>本文以C#为例，先来看类图🔻</p>
 <a id="more"></a>
-<p>接下来我们来具体分析一下这个类图🔻🔻<br>
+<p><img src="https://i.loli.net/2021/02/18/iGabpmZIz6swuX2.jpg" alt="设计模式-简单工厂模式.jpg"><br>
+接下来我们来具体分析一下这个类图🔻🔻<br>
 定义运算类Operation：该类是一个<strong>抽象类</strong>，拥有NumberA、NumberB两个属性，代表要计算的两个数字；包含一个GetResult的方法，用于对两个数字进行相应的计算。<br>
 定义具体的加法类OperationAdd、减法类OperationSub、乘法类OperationMul、除法类OperationDiv：这几个类分别<strong>继承自运算类Operation</strong>，实现具体的计算逻辑。<br>
 定义简单工厂类OperationFactory：该类包含一个CreateOperate方法，用于<strong>构造计算时所需要具体的运算类</strong>。</p>
@@ -65,6 +98,7 @@ CashNormal（正常结算）、CashDiscount（折扣结算）、StrategyReturn�
         <tag>C#</tag>
         <tag>设计模式</tag>
         <tag>简单工厂模式</tag>
+        <tag>创建型模式</tag>
       </tags>
   </entry>
   <entry>

@@ -1,6 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>C#线程同步构造</title>
+    <url>/2021/03/01/C-%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5%E6%9E%84%E9%80%A0/</url>
+    <content><![CDATA[<p>我们都知道，程序在运行时，不同线程访问同一个对象，是非常常见的事情。这种情况下如果处理不当，那么就会造成与预期不符的结果，所以线程同步在程序里有着相当重要的作用。<br>
+下面我们来看下常用的一些线程同步的方式方法。🔻</p>
+<a id="more"></a>
+<h2 id="易变构造"><a class="header-anchor" href="#易变构造">¶</a>易变构造</h2>
+<p><strong>定义</strong>：通过Volatile关键字，可以保证变量在执行上有着原子性的读、写操作。<br>
+这个定义读起来比较绕口，那么我们通过一个示例来。</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 定义测试类</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">VolatileTest</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="built_in">bool</span> _isStop = <span class="literal">false</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Do</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        Console.WriteLine(<span class="string">&quot;任务开始&quot;</span>);</span><br><span class="line">        <span class="keyword">var</span> th = <span class="keyword">new</span> Thread(Thread1);</span><br><span class="line">        th.Start();</span><br><span class="line"></span><br><span class="line">        Thread.Sleep(<span class="number">5000</span>);</span><br><span class="line">        _isStop = <span class="literal">true</span>;</span><br><span class="line">        Console.WriteLine(<span class="string">&quot;等待任务完成&quot;</span>);</span><br><span class="line">        th.Join();</span><br><span class="line"></span><br><span class="line">        Console.ReadLine();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Thread1</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="built_in">int</span> x = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (!_isStop)</span><br><span class="line">        &#123;</span><br><span class="line">            x = x + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        Console.WriteLine(<span class="string">$&quot;任务执行完成，计数：<span class="subst">&#123;x&#125;</span>&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//调用测试方法</span></span><br><span class="line">    <span class="keyword">new</span> VolatileTest().Do();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>先来猜猜上面这段代码的执行结果是怎样的😓😓</p>
+<p>代码在编译时，根据不同的编译配置，可能会出现不同的结果。</p>
+<ul>
+<li>
+<p>在Debug模式下，编译器并没有对代码进行优化，所以程序会得到正常的执行结果🔻<br>
+<img src="https://i.loli.net/2021/03/01/PvKmZLhQNtl2uM1.jpg" alt="VolatileDebug.jpg"><br>
+<em>至于这里的计数为什么会是负数，这个以后有机会在单独写文章分析</em></p>
+</li>
+<li>
+<p>在Release模式下,编译器默认打开了代码优化功能。编译VolatileTest文件时，编译器发现_isStop在Thread1方法中并不会发生改变，并且<strong>对_isStop的检查只会在循环前发生一次，不会每次循环时都检查</strong>。因此会生成一段一直累加x的代码出来。因此，程序运行时，得到了以下结果🔻<br>
+<img src="https://i.loli.net/2021/03/01/qkXNTVtiIhaplEu.jpg" alt="VolatileRelease.jpg"></p>
+</li>
+</ul>
+<p>接下来通过IL代码来对比一下两者的不同（左边为Debug版本，右边为Release版本）<br>
+<img src="https://i.loli.net/2021/03/01/6GfIXBDxwCpRQkM.jpg" alt="VolatileIL.jpg"><br>
+在两个版本中，主要有两点不同：</p>
+<ol>
+<li>Debug版本中，在初始化变量时，定义了一个bool类型的变量；Release版本没有</li>
+<li>Debug版本中，在循环结束前，对定义的bool变量和_isStop进行了计算，然后判断是否需要继续循环；Release版本中直接获取并校验了_isStop的值，结果为false，则无限循环。</li>
+</ol>
+<p>要解决这个问题其实很简单，就是使用前面所说的<strong>Volatile</strong>关键字定义变量即可。<strong>Volatile</strong>能保证变量的原子操作，因此用<strong>Volatile</strong>定义的变量，编译器是不会进行之前的优化操作。<br>
+所以重新修改_isStop变量的定义即可修正前面的问题。</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">volatile</span> <span class="built_in">bool</span> _isStop = <span class="literal">false</span>;</span><br></pre></td></tr></table></figure>
+<p>另外，Volatile类还提供了以下两个静态方法来进行变量的读写🔻</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line">Volatile.Read(<span class="keyword">ref</span> _isStop);</span><br><span class="line">Volatile.Write(<span class="keyword">ref</span> _isStop,<span class="literal">true</span>);</span><br></pre></td></tr></table></figure>
+<p>因此通过如下代码也可以修正前面的问题：</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Thread1</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">int</span> x = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">//这里使用Volatile.Read来读取最新的值</span></span><br><span class="line">    <span class="keyword">while</span> (!Volatile.Read(<span class="keyword">ref</span> _isStop))</span><br><span class="line">    &#123;</span><br><span class="line">        x = x + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    Console.WriteLine(<span class="string">$&quot;任务执行完成，计数：<span class="subst">&#123;x&#125;</span>&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果对上面的概念还是不太理解，那么可以再参考下书中的这样一段定义🔻</p>
+<blockquote>
+<p>当线程通过共享内存相互通信时，调用Volatile.Write来写入最后一个值，调用Volatile.Read来读取第一个值</p>
+</blockquote>
+<p>参考资料：<br>
+《CLR via C#》</p>
+]]></content>
+      <categories>
+        <category>.NET</category>
+      </categories>
+      <tags>
+        <tag>线程同步</tag>
+        <tag>Volatile</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>设计模式-代理模式</title>
     <url>/2021/02/23/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/</url>
     <content><![CDATA[<p><strong>定义</strong> 为其他对象提供一个代理通道，来完成对这个对象的访问。<br>

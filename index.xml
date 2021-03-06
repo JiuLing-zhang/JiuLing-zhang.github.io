@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>码术-一个皇马球迷的博客而已</title>
+    <link>https://jiuling.me/</link>
+    <description>Recent content on 码术-一个皇马球迷的博客而已</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 01 Mar 2021 21:54:13 +0800</lastBuildDate><atom:link href="https://jiuling.me/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>C#基元线程同步构造</title>
+      <link>https://jiuling.me/post/c-%E5%9F%BA%E5%85%83%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5%E6%9E%84%E9%80%A0/</link>
+      <pubDate>Mon, 01 Mar 2021 21:54:13 +0800</pubDate>
+      
+      <guid>https://jiuling.me/post/c-%E5%9F%BA%E5%85%83%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5%E6%9E%84%E9%80%A0/</guid>
+      <description>&lt;p&gt;我们都知道，程序在运行时，不同线程访问同一个对象，是非常常见的事情。这种情况下如果处理不当，那么就会造成与预期不符的结果，所以线程同步在程序里有着相当重要的作用。
+下面我们来看下常用的一些线程同步的方式方法。🔻&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>设计模式-代理模式</title>
+      <link>https://jiuling.me/post/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Tue, 23 Feb 2021 21:31:12 +0800</pubDate>
+      
+      <guid>https://jiuling.me/post/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;定义&lt;/strong&gt; 为其他对象提供一个代理通道，来完成对这个对象的访问。&lt;br&gt;
+&lt;strong&gt;类型&lt;/strong&gt; 结构型模式&lt;br&gt;
+&lt;strong&gt;特点&lt;/strong&gt; 可以对调用者隐藏实际对象。&lt;br&gt;
+&lt;strong&gt;举例&lt;/strong&gt; 张三替李四追求王五。&lt;/p&gt;
+&lt;p&gt;本文以C#为例，先来看类图🔻&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>设计模式-策略模式</title>
+      <link>https://jiuling.me/post/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Fri, 19 Feb 2021 18:52:28 +0800</pubDate>
+      
+      <guid>https://jiuling.me/post/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;定义&lt;/strong&gt; 策略模式实际上是定义了一系列算法，他们可以相互替换，但是并不影响算法的调用者。&lt;br&gt;
+&lt;strong&gt;类型&lt;/strong&gt; 行为型模式&lt;br&gt;
+&lt;strong&gt;特点&lt;/strong&gt; 算法可以相互替换，并不相互影响，具体算法也不会暴露给调用者。&lt;br&gt;
+&lt;strong&gt;举例&lt;/strong&gt; 超市结账时，使用不同的优惠方式进行结算。&lt;/p&gt;
+&lt;p&gt;本文以C#为例，先来看类图🔻&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>设计模式-简单工厂模式</title>
+      <link>https://jiuling.me/post/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Thu, 18 Feb 2021 22:53:34 +0800</pubDate>
+      
+      <guid>https://jiuling.me/post/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;定义&lt;/strong&gt; 用单独一个类来创建具体实例的过程。&lt;br&gt;
+&lt;strong&gt;类型&lt;/strong&gt; 创建型模式&lt;br&gt;
+&lt;strong&gt;特点&lt;/strong&gt; 使用工厂可以减少代码的耦合性，使代码的可维护性变高。遇到新的需求时，只要新增一个功能的实现，然后通过工厂将实例构建出来即可。&lt;br&gt;
+&lt;strong&gt;举例&lt;/strong&gt; 实现两个数字的计算，运用工厂分别创建计算加、减、乘、除的不同实例。&lt;/p&gt;
+&lt;p&gt;本文以C#为例，先来看类图🔻&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>C#使用decimal TryParse转换时，字符串中有逗号的坑</title>
+      <link>https://jiuling.me/post/c-%E4%BD%BF%E7%94%A8decimal-tryparse%E8%BD%AC%E6%8D%A2%E6%97%B6%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E6%9C%89%E9%80%97%E5%8F%B7%E7%9A%84%E5%9D%91/</link>
+      <pubDate>Sat, 06 Feb 2021 09:33:13 +0800</pubDate>
+      
+      <guid>https://jiuling.me/post/c-%E4%BD%BF%E7%94%A8decimal-tryparse%E8%BD%AC%E6%8D%A2%E6%97%B6%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E6%9C%89%E9%80%97%E5%8F%B7%E7%9A%84%E5%9D%91/</guid>
+      <description>&lt;h2 id=&#34;起源&#34;&gt;起源&lt;/h2&gt;
+&lt;p&gt;一切都要从那个线上bug说起，执行&lt;code&gt;decimal.TryParse&lt;/code&gt;时程序并没有按照预期输出结果💔💔💔&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-C#&#34; data-lang=&#34;C#&#34;&gt;&lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;input&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;1,2,3&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;kt&#34;&gt;decimal&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;output&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;decimal&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;TryParse&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;input&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;out&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;output&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;Console&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;WriteLine&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;$&amp;#34;{output}&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;else&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;Console&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;WriteLine&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;$&amp;#34;Unable to decimal {input}&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;//这里意外的输出了 123
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>C#托管堆和垃圾回收</title>
+      <link>https://jiuling.me/post/c-%E6%89%98%E7%AE%A1%E5%A0%86%E5%92%8C%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/</link>
+      <pubDate>Fri, 05 Feb 2021 21:55:58 +0800</pubDate>
+      
+      <guid>https://jiuling.me/post/c-%E6%89%98%E7%AE%A1%E5%A0%86%E5%92%8C%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/</guid>
+      <description>&lt;h2 id=&#34;托管堆基础&#34;&gt;托管堆基础&lt;/h2&gt;
+&lt;h3 id=&#34;分配资源&#34;&gt;分配资源&lt;/h3&gt;
+&lt;p&gt;C#要求所有对象都从&lt;strong&gt;托管堆&lt;/strong&gt;分配。进程初始化时，&lt;code&gt;CLR&lt;/code&gt;划出一个地址空间区域作为托管堆。&lt;code&gt;CLR&lt;/code&gt;还会维护一个叫&lt;code&gt;NextObjPtr&lt;/code&gt;的指针，该指针指向下一个对象在堆中的位置。&lt;/p&gt;
+&lt;p&gt;一个区域被非垃圾填满后，&lt;code&gt;CLR&lt;/code&gt;会分配更多的区域出来，一直重复，直到进程地址空间被填满。(32位进程最多能分配1.5GB;64位进程最多能分配8TB)&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>https://jiuling.me/about/</link>
+      <pubDate>Fri, 05 Feb 2021 20:52:44 +0800</pubDate>
+      
+      <guid>https://jiuling.me/about/</guid>
+      <description>我是九零9️⃣0️⃣ 码了好多年的代码，如今还是个小coder👦👦。现在主营C#，码过VB.Net，填过Java的坑，用Py给自己捣鼓过小工具</description>
+    </item>
+    
+  </channel>
+</rss>

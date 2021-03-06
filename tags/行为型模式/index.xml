@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>行为型模式 on 码术-一个皇马球迷的博客而已</title>
+    <link>https://jiuling.me/tags/%E8%A1%8C%E4%B8%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/</link>
+    <description>Recent content in 行为型模式 on 码术-一个皇马球迷的博客而已</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 19 Feb 2021 18:52:28 +0800</lastBuildDate><atom:link href="https://jiuling.me/tags/%E8%A1%8C%E4%B8%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>设计模式-策略模式</title>
+      <link>https://jiuling.me/post/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Fri, 19 Feb 2021 18:52:28 +0800</pubDate>
+      
+      <guid>https://jiuling.me/post/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;定义&lt;/strong&gt; 策略模式实际上是定义了一系列算法，他们可以相互替换，但是并不影响算法的调用者。&lt;br&gt;
+&lt;strong&gt;类型&lt;/strong&gt; 行为型模式&lt;br&gt;
+&lt;strong&gt;特点&lt;/strong&gt; 算法可以相互替换，并不相互影响，具体算法也不会暴露给调用者。&lt;br&gt;
+&lt;strong&gt;举例&lt;/strong&gt; 超市结账时，使用不同的优惠方式进行结算。&lt;/p&gt;
+&lt;p&gt;本文以C#为例，先来看类图🔻&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

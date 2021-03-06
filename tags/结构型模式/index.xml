@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>结构型模式 on 码术-一个皇马球迷的博客而已</title>
+    <link>https://jiuling.me/tags/%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/</link>
+    <description>Recent content in 结构型模式 on 码术-一个皇马球迷的博客而已</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 23 Feb 2021 21:31:12 +0800</lastBuildDate><atom:link href="https://jiuling.me/tags/%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>设计模式-代理模式</title>
+      <link>https://jiuling.me/post/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Tue, 23 Feb 2021 21:31:12 +0800</pubDate>
+      
+      <guid>https://jiuling.me/post/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;定义&lt;/strong&gt; 为其他对象提供一个代理通道，来完成对这个对象的访问。&lt;br&gt;
+&lt;strong&gt;类型&lt;/strong&gt; 结构型模式&lt;br&gt;
+&lt;strong&gt;特点&lt;/strong&gt; 可以对调用者隐藏实际对象。&lt;br&gt;
+&lt;strong&gt;举例&lt;/strong&gt; 张三替李四追求王五。&lt;/p&gt;
+&lt;p&gt;本文以C#为例，先来看类图🔻&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>设计模式 on 码术-一个皇马球迷的博客而已</title>
+    <link>https://jiuling.me/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
+    <description>Recent content in 设计模式 on 码术-一个皇马球迷的博客而已</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 23 Feb 2021 21:31:12 +0800</lastBuildDate><atom:link href="https://jiuling.me/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>设计模式-代理模式</title>
+      <link>https://jiuling.me/post/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Tue, 23 Feb 2021 21:31:12 +0800</pubDate>
+      
+      <guid>https://jiuling.me/post/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;定义&lt;/strong&gt; 为其他对象提供一个代理通道，来完成对这个对象的访问。&lt;br&gt;
+&lt;strong&gt;类型&lt;/strong&gt; 结构型模式&lt;br&gt;
+&lt;strong&gt;特点&lt;/strong&gt; 可以对调用者隐藏实际对象。&lt;br&gt;
+&lt;strong&gt;举例&lt;/strong&gt; 张三替李四追求王五。&lt;/p&gt;
+&lt;p&gt;本文以C#为例，先来看类图🔻&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>设计模式-策略模式</title>
+      <link>https://jiuling.me/post/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Fri, 19 Feb 2021 18:52:28 +0800</pubDate>
+      
+      <guid>https://jiuling.me/post/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;定义&lt;/strong&gt; 策略模式实际上是定义了一系列算法，他们可以相互替换，但是并不影响算法的调用者。&lt;br&gt;
+&lt;strong&gt;类型&lt;/strong&gt; 行为型模式&lt;br&gt;
+&lt;strong&gt;特点&lt;/strong&gt; 算法可以相互替换，并不相互影响，具体算法也不会暴露给调用者。&lt;br&gt;
+&lt;strong&gt;举例&lt;/strong&gt; 超市结账时，使用不同的优惠方式进行结算。&lt;/p&gt;
+&lt;p&gt;本文以C#为例，先来看类图🔻&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>设计模式-简单工厂模式</title>
+      <link>https://jiuling.me/post/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Thu, 18 Feb 2021 22:53:34 +0800</pubDate>
+      
+      <guid>https://jiuling.me/post/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;定义&lt;/strong&gt; 用单独一个类来创建具体实例的过程。&lt;br&gt;
+&lt;strong&gt;类型&lt;/strong&gt; 创建型模式&lt;br&gt;
+&lt;strong&gt;特点&lt;/strong&gt; 使用工厂可以减少代码的耦合性，使代码的可维护性变高。遇到新的需求时，只要新增一个功能的实现，然后通过工厂将实例构建出来即可。&lt;br&gt;
+&lt;strong&gt;举例&lt;/strong&gt; 实现两个数字的计算，运用工厂分别创建计算加、减、乘、除的不同实例。&lt;/p&gt;
+&lt;p&gt;本文以C#为例，先来看类图🔻&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

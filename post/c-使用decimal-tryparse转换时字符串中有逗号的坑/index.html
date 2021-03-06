@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>C#使用decimal TryParse转换时，字符串中有逗号的坑 - 码术-一个皇马球迷的博客而已</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="九零" /><meta name="description" content="起源 一切都要从那个线上bug说起，执行decimal.TryParse时程序并没有按照预期输出结果💔💔💔
+1 2 3 4 5 6 7 8 9 10 11  string input = &amp;#34;1,2,3&amp;#34;; decimal output; if (decimal.TryParse(input, out output)) { Console.WriteLine($&amp;#34;{output}&amp;#34;); } else { Console.WriteLine($&amp;#34;Unable to decimal {input}&amp;#34;); } //这里意外的输出了 123   " /><meta name="keywords" content="码术" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.81.0 with theme even" />
+
+
+<link rel="canonical" href="https://jiuling.me/post/c-%E4%BD%BF%E7%94%A8decimal-tryparse%E8%BD%AC%E6%8D%A2%E6%97%B6%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E6%9C%89%E9%80%97%E5%8F%B7%E7%9A%84%E5%9D%91/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="C#使用decimal TryParse转换时，字符串中有逗号的坑" />
+<meta property="og:description" content="起源
+一切都要从那个线上bug说起，执行decimal.TryParse时程序并没有按照预期输出结果💔💔💔
+
+
+ 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+
+
+string input = &#34;1,2,3&#34;;
+decimal output;
+if (decimal.TryParse(input, out output))
+{
+    Console.WriteLine($&#34;{output}&#34;);
+}
+else
+{
+    Console.WriteLine($&#34;Unable to decimal {input}&#34;);
+}
+//这里意外的输出了 123
+
+
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://jiuling.me/post/c-%E4%BD%BF%E7%94%A8decimal-tryparse%E8%BD%AC%E6%8D%A2%E6%97%B6%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E6%9C%89%E9%80%97%E5%8F%B7%E7%9A%84%E5%9D%91/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-02-06T09:33:13&#43;08:00" />
+<meta property="article:modified_time" content="2021-02-06T09:33:13&#43;08:00" />
+
+<meta itemprop="name" content="C#使用decimal TryParse转换时，字符串中有逗号的坑">
+<meta itemprop="description" content="起源
+一切都要从那个线上bug说起，执行decimal.TryParse时程序并没有按照预期输出结果💔💔💔
+
+
+ 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+
+
+string input = &#34;1,2,3&#34;;
+decimal output;
+if (decimal.TryParse(input, out output))
+{
+    Console.WriteLine($&#34;{output}&#34;);
+}
+else
+{
+    Console.WriteLine($&#34;Unable to decimal {input}&#34;);
+}
+//这里意外的输出了 123
+
+
+"><meta itemprop="datePublished" content="2021-02-06T09:33:13&#43;08:00" />
+<meta itemprop="dateModified" content="2021-02-06T09:33:13&#43;08:00" />
+<meta itemprop="wordCount" content="1360">
+<meta itemprop="keywords" content="C#," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="C#使用decimal TryParse转换时，字符串中有逗号的坑"/>
+<meta name="twitter:description" content="起源
+一切都要从那个线上bug说起，执行decimal.TryParse时程序并没有按照预期输出结果💔💔💔
+
+
+ 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+
+
+string input = &#34;1,2,3&#34;;
+decimal output;
+if (decimal.TryParse(input, out output))
+{
+    Console.WriteLine($&#34;{output}&#34;);
+}
+else
+{
+    Console.WriteLine($&#34;Unable to decimal {input}&#34;);
+}
+//这里意外的输出了 123
+
+
+"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">码术</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">主页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">码术</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">主页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about">关于</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">C#使用decimal TryParse转换时，字符串中有逗号的坑</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-02-06 </span>
+        <div class="post-category">
+            <a href="/categories/%E9%82%A3%E4%BA%9B%E5%B9%B4%E9%87%8C%E7%9A%84%E9%82%A3%E4%BA%9B%E5%9D%91/"> 那些年里的那些坑 </a>
+            </div>
+          <span class="more-meta"> 约 1360 字 </span>
+          <span class="more-meta"> 预计阅读 3 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#起源">起源</a></li>
+        <li><a href="#查看究竟">查看究竟</a></li>
+        <li><a href="#问题延申">问题延申</a></li>
+        <li><a href="#打破砂锅干到底">打破砂锅干到底</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h2 id="起源">起源</h2>
+<p>一切都要从那个线上bug说起，执行<code>decimal.TryParse</code>时程序并没有按照预期输出结果💔💔💔</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-C#" data-lang="C#"><span class="kt">string</span> <span class="n">input</span> <span class="p">=</span> <span class="s">&#34;1,2,3&#34;</span><span class="p">;</span>
+<span class="kt">decimal</span> <span class="n">output</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="kt">decimal</span><span class="p">.</span><span class="n">TryParse</span><span class="p">(</span><span class="n">input</span><span class="p">,</span> <span class="k">out</span> <span class="n">output</span><span class="p">))</span>
+<span class="p">{</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&#34;{output}&#34;</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">else</span>
+<span class="p">{</span>
+    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&#34;Unable to decimal {input}&#34;</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c1">//这里意外的输出了 123
+</span></code></pre></td></tr></table>
+</div>
+</div><p>因为按照我的理解这里是不能成功转换的，所以排查问题的着重点根本就没放在这，以至于整个排查过程也显得颇为辛苦。</p>
+<h2 id="查看究竟">查看究竟</h2>
+<p>去MSDN上翻帮助文档，发现<code>TryParse</code>有这样一个重载方法
+<img src="https://i.loli.net/2021/02/06/Hwfr16SxCT38yJm.png" alt="TryParse示例1.png"></p>
+<p>看到<code>Globalization</code>的时候就知道凉了一半，在往下看示例，果然，<strong>货币符号</strong> 、<strong>千分位</strong> 、<strong>小数点</strong> 全出来了。
+<img src="https://i.loli.net/2021/02/06/JTMPyn4KHRS7a3X.png" alt="TryParse示例2.png"></p>
+<p>现在问题很明显了，我的代码没有转换失败很有可能就是因为<strong>逗号被识别成了千分位</strong>。
+反编译一下，发现转换的时候确实使用了一个默认值 <code>System.Globalization.NumberStyles.Number</code>。
+<img src="https://i.loli.net/2021/02/06/yYKFJgzOPRL5BpA.png" alt="TryParse示例3.png"></p>
+<p>继续来看这个枚举值，微软官方文档里给的说明如下：</p>
+<blockquote>
+<p>指示使用<code>AllowLeadingWhite</code>、<code>AllowTrailingWhite</code>、<code>AllowLeadingSign</code>、<code>AllowTrailingSign</code>、<code>AllowDecimalPoint</code>和<code>AllowThousands</code>样式。 这是复合数字样式。
+<img src="https://i.loli.net/2021/02/06/TdZWN3b5fV7vDnh.png" alt="TryParse示例4.png"></p>
+</blockquote>
+<p>我们从最后一个类型<code>AllowThousands</code>可以看出来，默认确实使用了千分位，所以在上述示例中&quot;1,2,3&quot;的确能够成功的完成转换。</p>
+<h2 id="问题延申">问题延申</h2>
+<p>默认使用了千分位解析没错，但是&quot;1,2,3&quot;这个字符串的逗号也没在实际的千分位位置，这又是咋回事呢，想不通。😨😨😨</p>
+<p>继续往下看，看看<code>AllowThousands</code>又是如何定义的。</p>
+<blockquote>
+<p>指示数字字符串可以具有组分隔符，例如将百位与千位分隔开来的符号。 如果<code>NumberStyles</code>值包括<code>AllowCurrencySymbol</code>标志，要分析的字符串包括货币符号，则有效组分隔符字符由<code>CurrencyGroupSeparator</code>属性确定，且每个组中的位数由<code>CurrencyGroupSizes</code>属性确定。 否则，有效的组分隔符字符由<code>NumberGroupSeparator</code>属性确定，每组的位数由<code>NumberGroupSizes</code>属性确定。</p>
+</blockquote>
+<p>从文档中我们知道每组数字的位数由<code>NumberGroupSizes</code>来决定。
+回过头来继续看刚才反编译的代码，<code>FormatInfo</code>的参数使用的<code>NumberFormatInfo.CurrentInfo</code>，现在我们看下<code>NumberGroupSizes</code>的值到底是多少（调试发现默认千分位每组的位数是3）。
+<img src="https://i.loli.net/2021/02/06/A19HK32ZukCyTOP.png" alt="TryParse示例5.png"></p>
+<p>到这里我已经是摸不到头绪了，所以去网上搜索了一下，但是结果也不理想，总结一下网上就两种结论：</p>
+<ol>
+<li>有逗号时可以转换成功</li>
+<li>如果要验证千分位的位置，使用正则来辅助</li>
+</ol>
+<h2 id="打破砂锅干到底">打破砂锅干到底</h2>
+<p>网上找不到满意的答案，那就只能研究一下.Net的源码了，所以我对<code>decimal.TryParse</code>方法进行了调试，终于弄清了这个原因。下面放一部分关键代码：</p>
+<p><img src="https://i.loli.net/2021/02/07/v6e721mcqQW5Vgz.png" alt="TryParse示例6.png">
+<img src="https://i.loli.net/2021/02/07/zLW6NXwUioxe2af.png" alt="TryParse示例7.png"></p>
+<p>实际上在转换的时候，.NET将需要转换的字符串转换成了字符指针，然后逐字符去做对比。当要对比的字符等于千分位的分隔符时直接跳过，继续对比下一位。因此，不管字符串中有多少个分隔符都是可以转换的，比如下面这个例子：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-C#" data-lang="C#"><span class="kt">decimal</span> <span class="k">value</span> <span class="p">=</span> <span class="kt">decimal</span><span class="p">.</span><span class="n">Parse</span><span class="p">(</span><span class="s">&#34;1,,,,,,,2,,,,3&#34;</span><span class="p">);</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="k">value</span><span class="p">);</span>
+<span class="c1">//输出 123
+</span></code></pre></td></tr></table>
+</div>
+</div><p>当然，实际上这个转换的过程远比我描述的复杂，我这里只是针对性的分析了一下而已。
+至此，整个问题都找到了答案，圆满收官😏😏</p>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">九零</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-02-06
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/c/">C#</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">设计模式-简单工厂模式</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/c-%E6%89%98%E7%AE%A1%E5%A0%86%E5%92%8C%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/">
+            <span class="next-text nav-default">C#托管堆和垃圾回收</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+  <a href="https://jiuling.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>九零</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

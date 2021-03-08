@@ -27,7 +27,6 @@
 
 
 
-
 <meta name="generator" content="Hugo 0.81.0 with theme even" />
 
 
@@ -41,10 +40,10 @@
 
 
 <link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="设计模式-策略模式" />
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" /><meta property="og:title" content="设计模式-策略模式" />
 <meta property="og:description" content="定义 策略模式实际上是定义了一系列算法，他们可以相互替换，但是并不影响算法的调用者。
 类型 行为型模式
 特点 算法可以相互替换，并不相互影响，具体算法也不会暴露给调用者。
@@ -94,10 +93,8 @@
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/">
-        <li class="mobile-menu-item">主页</li>
-      </a><a href="/post/">
-        <li class="mobile-menu-item">归档</li>
+    <a href="/post/">
+        <li class="mobile-menu-item">时间线</li>
       </a><a href="/tags/">
         <li class="mobile-menu-item">标签</li>
       </a><a href="/categories/">
@@ -124,10 +121,10 @@
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
-    <li class="menu-item">
-        <a class="menu-item-link" href="/">主页</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">归档</a>
+    <li style="display:inline-block;margin-right:10px;">
+      <input type="search" class="docsearch-input" placeholder="搜索" />
+    </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">时间线</a>
       </li><li class="menu-item">
         <a class="menu-item-link" href="/tags/">标签</a>
       </li><li class="menu-item">
@@ -492,7 +489,7 @@
   
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+  
 
 
 
@@ -505,5 +502,15 @@
 
 
 
+<script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script>
+    docsearch({
+    apiKey: "da84c0023d923bc94c9a393003235106",
+    indexName: "jiuling.me",
+    appId: "7I30FB6OZ7",
+    inputSelector: '.docsearch-input',
+    debug: false,
+    });
+</script>
 </body>
 </html>

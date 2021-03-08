@@ -13,8 +13,8 @@
       <pubDate>Mon, 01 Mar 2021 21:54:13 +0800</pubDate>
       
       <guid>https://jiuling.me/post/c-%E5%9F%BA%E5%85%83%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5%E6%9E%84%E9%80%A0/</guid>
-      <description>&lt;p&gt;我们都知道，程序在运行时，不同线程访问同一个对象，是非常常见的事情。这种情况下如果处理不当，那么就会造成与预期不符的结果，所以线程同步在程序里有着相当重要的作用。
-下面我们来看下常用的一些线程同步的方式方法。🔻&lt;/p&gt;</description>
+      <description>&lt;p&gt;&lt;strong&gt;基元&lt;/strong&gt;是指可以在代码中使用的最简单的构造。&lt;br&gt;
+有两种基元构造：&lt;strong&gt;用户模式构造&lt;/strong&gt;和&lt;strong&gt;内核模式构造&lt;/strong&gt;。应尽量使用用户模式构造，它们的速度要比内核构造快很多，因为他们使用了特殊的&lt;code&gt;CPU&lt;/code&gt;指令来协调线程（意味着协调是在硬件中发生，所以会快很多）。&lt;/p&gt;</description>
     </item>
     
   </channel>

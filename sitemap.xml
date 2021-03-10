@@ -3,7 +3,56 @@
   
   <url>
     <loc>https://jiuling.me/categories/.net/</loc>
-    <lastmod>2021-03-01T21:54:13+08:00</lastmod>
+    <lastmod>2021-03-10T21:42:07+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://jiuling.me/post/net-web-api%E4%BD%BF%E7%94%A8modelbinder%E8%BF%9B%E8%A1%8C%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A5%E5%8F%A3%E5%8F%82%E6%95%B0%E7%BB%91%E5%AE%9A/</loc>
+    <lastmod>2021-03-10T21:42:07+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://jiuling.me/categories/</loc>
+    <lastmod>2021-03-10T21:42:07+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://jiuling.me/tags/modelbinder/</loc>
+    <lastmod>2021-03-10T21:42:07+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://jiuling.me/post/</loc>
+    <lastmod>2021-03-10T21:42:07+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://jiuling.me/tags/</loc>
+    <lastmod>2021-03-10T21:42:07+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://jiuling.me/tags/%E5%8F%82%E6%95%B0%E7%BB%91%E5%AE%9A/</loc>
+    <lastmod>2021-03-10T21:42:07+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://jiuling.me/</loc>
+    <lastmod>2021-03-10T21:42:07+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -16,35 +65,7 @@
   </url>
   
   <url>
-    <loc>https://jiuling.me/categories/</loc>
-    <lastmod>2021-03-01T21:54:13+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://jiuling.me/post/</loc>
-    <lastmod>2021-03-01T21:54:13+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://jiuling.me/tags/</loc>
-    <lastmod>2021-03-01T21:54:13+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://jiuling.me/tags/volatile/</loc>
-    <lastmod>2021-03-01T21:54:13+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://jiuling.me/</loc>
     <lastmod>2021-03-01T21:54:13+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

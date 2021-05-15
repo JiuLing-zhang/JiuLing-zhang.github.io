@@ -6,7 +6,20 @@
     <description>Recent content on 码术-一个皇马球迷的博客而已</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 10 Mar 2021 21:42:07 +0800</lastBuildDate><atom:link href="https://jiuling.me/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 15 May 2021 14:37:05 +0800</lastBuildDate><atom:link href="https://jiuling.me/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>设计模式-工厂方法模式</title>
+      <link>https://jiuling.me/post/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Sat, 15 May 2021 14:37:05 +0800</pubDate>
+      
+      <guid>https://jiuling.me/post/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;定义&lt;/strong&gt; 定义一个创建产品的工厂接口,将实际创建工作推迟到子类中去。&lt;br&gt;
+&lt;strong&gt;类型&lt;/strong&gt; 创建型模式&lt;br&gt;
+&lt;strong&gt;特点&lt;/strong&gt; 相对于简单工厂模式，将创建的逻辑交给调用者，更加符合闭开原则。&lt;br&gt;
+&lt;strong&gt;举例&lt;/strong&gt; 数字计算器。&lt;/p&gt;
+&lt;p&gt;本文以C#为例，先来看类图🔻&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>.NET Web API使用ModelBinder进行自定义接口参数绑定</title>
       <link>https://jiuling.me/post/net-web-api%E4%BD%BF%E7%94%A8modelbinder%E8%BF%9B%E8%A1%8C%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A5%E5%8F%A3%E5%8F%82%E6%95%B0%E7%BB%91%E5%AE%9A/</link>

@@ -6,7 +6,34 @@
     <description>Recent content in Tags on 码术-一个皇马球迷的博客而已</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 10 Mar 2021 21:42:07 +0800</lastBuildDate><atom:link href="https://jiuling.me/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 15 May 2021 14:37:05 +0800</lastBuildDate><atom:link href="https://jiuling.me/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>创建型模式</title>
+      <link>https://jiuling.me/tags/%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Sat, 15 May 2021 14:37:05 +0800</pubDate>
+      
+      <guid>https://jiuling.me/tags/%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>工厂方法模式</title>
+      <link>https://jiuling.me/tags/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Sat, 15 May 2021 14:37:05 +0800</pubDate>
+      
+      <guid>https://jiuling.me/tags/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>设计模式</title>
+      <link>https://jiuling.me/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Sat, 15 May 2021 14:37:05 +0800</pubDate>
+      
+      <guid>https://jiuling.me/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>ModelBinder</title>
       <link>https://jiuling.me/tags/modelbinder/</link>
@@ -44,15 +71,6 @@
     </item>
     
     <item>
-      <title>C#</title>
-      <link>https://jiuling.me/tags/c#/</link>
-      <pubDate>Tue, 23 Feb 2021 21:31:12 +0800</pubDate>
-      
-      <guid>https://jiuling.me/tags/c#/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>代理模式</title>
       <link>https://jiuling.me/tags/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/</link>
       <pubDate>Tue, 23 Feb 2021 21:31:12 +0800</pubDate>
@@ -67,15 +85,6 @@
       <pubDate>Tue, 23 Feb 2021 21:31:12 +0800</pubDate>
       
       <guid>https://jiuling.me/tags/%E7%BB%93%E6%9E%84%E5%9E%8B%E6%A8%A1%E5%BC%8F/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>设计模式</title>
-      <link>https://jiuling.me/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
-      <pubDate>Tue, 23 Feb 2021 21:31:12 +0800</pubDate>
-      
-      <guid>https://jiuling.me/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid>
       <description></description>
     </item>
     
@@ -98,11 +107,11 @@
     </item>
     
     <item>
-      <title>创建型模式</title>
-      <link>https://jiuling.me/tags/%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/</link>
+      <title>C#</title>
+      <link>https://jiuling.me/tags/c#/</link>
       <pubDate>Thu, 18 Feb 2021 22:53:34 +0800</pubDate>
       
-      <guid>https://jiuling.me/tags/%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/</guid>
+      <guid>https://jiuling.me/tags/c#/</guid>
       <description></description>
     </item>
     

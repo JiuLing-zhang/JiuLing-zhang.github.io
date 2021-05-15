@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>工厂方法模式 on 码术-一个皇马球迷的博客而已</title>
+    <link>https://jiuling.me/tags/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/</link>
+    <description>Recent content in 工厂方法模式 on 码术-一个皇马球迷的博客而已</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 15 May 2021 14:37:05 +0800</lastBuildDate><atom:link href="https://jiuling.me/tags/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>设计模式-工厂方法模式</title>
+      <link>https://jiuling.me/post/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Sat, 15 May 2021 14:37:05 +0800</pubDate>
+      
+      <guid>https://jiuling.me/post/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;定义&lt;/strong&gt; 定义一个创建产品的工厂接口,将实际创建工作推迟到子类中去。&lt;br&gt;
+&lt;strong&gt;类型&lt;/strong&gt; 创建型模式&lt;br&gt;
+&lt;strong&gt;特点&lt;/strong&gt; 相对于简单工厂模式，将创建的逻辑交给调用者，更加符合闭开原则。&lt;br&gt;
+&lt;strong&gt;举例&lt;/strong&gt; 数字计算器。&lt;/p&gt;
+&lt;p&gt;本文以C#为例，先来看类图🔻&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

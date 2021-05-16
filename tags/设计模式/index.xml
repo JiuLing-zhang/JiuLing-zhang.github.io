@@ -6,7 +6,20 @@
     <description>Recent content in 设计模式 on 码术-一个皇马球迷的博客而已</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 15 May 2021 14:37:05 +0800</lastBuildDate><atom:link href="https://jiuling.me/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 16 May 2021 14:00:51 +0800</lastBuildDate><atom:link href="https://jiuling.me/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>设计模式-原型模式</title>
+      <link>https://jiuling.me/post/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Sun, 16 May 2021 14:00:51 +0800</pubDate>
+      
+      <guid>https://jiuling.me/post/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;定义&lt;/strong&gt; 用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。&lt;br&gt;
+&lt;strong&gt;类型&lt;/strong&gt; 创建型模式&lt;br&gt;
+&lt;strong&gt;特点&lt;/strong&gt; 通过一个对象创建另外一个对象，创建时不需要知道任何创建的细节。&lt;br&gt;
+&lt;strong&gt;举例&lt;/strong&gt; 对象复制。&lt;/p&gt;
+&lt;p&gt;本文以C#为例，先来看类图🔻&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>设计模式-工厂方法模式</title>
       <link>https://jiuling.me/post/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/</link>

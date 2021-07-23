@@ -22,7 +22,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.81.0 with theme even" />
+<meta name="generator" content="Hugo 0.86.0 with theme even" />
 
 
 <link rel="canonical" href="https://jiuling.me/" />
@@ -142,6 +142,31 @@
     </div>
     <div class="read-more">
       <a href="/post/%E5%AE%9E%E7%94%A8%E7%BD%91%E7%AB%99%E5%92%8C%E9%AB%98%E6%95%88%E5%B0%8F%E5%B7%A5%E5%85%B7%E6%B1%87%E6%80%BB%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/%E8%81%8A%E8%81%8Anavicat%E9%80%A0%E6%88%90%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98/">聊聊Navicat造成的数据库死锁问题</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2021-07-23 </span>
+      <div class="post-category">
+          <a href="/categories/%E9%82%A3%E4%BA%9B%E5%B9%B4%E9%87%8C%E7%9A%84%E9%82%A3%E4%BA%9B%E5%9D%91/"> 那些年里的那些坑 </a>
+          </div>
+        <span class="more-meta"> 约 629 字 </span>
+        <span class="more-meta"> 预计阅读 2 分钟 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      <p><code>Navicat</code>是我比较喜欢的一款工具了，虽然我没有买正版😥😥不过最近经常遇到有小伙伴说“<code>Navicat</code>会导致死锁，不要用”、“<code>Navicat</code>会锁表”等等，于是就有了这篇文章，今天就来聊聊什么情况下会导致死锁。<br>
+其实在大多时候，使用<code>Navicat</code>造成死锁的原因都是因为操作不当引起的（基本都是因为图形化界面操作导致）。<br>
+下面直接进入正题👇👇</p>
+    </div>
+    <div class="read-more">
+      <a href="/post/%E8%81%8A%E8%81%8Anavicat%E9%80%A0%E6%88%90%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
@@ -348,7 +373,7 @@
 <p>一切都要从那个线上bug说起，执行<code>decimal.TryParse</code>时程序并没有按照预期输出结果💔💔💔</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -361,7 +386,7 @@
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-C#" data-lang="C#"><span class="kt">string</span> <span class="n">input</span> <span class="p">=</span> <span class="s">&#34;1,2,3&#34;</span><span class="p">;</span>
+<pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="kt">string</span> <span class="n">input</span> <span class="p">=</span> <span class="s">&#34;1,2,3&#34;</span><span class="p">;</span>
 <span class="kt">decimal</span> <span class="n">output</span><span class="p">;</span>
 <span class="k">if</span> <span class="p">(</span><span class="kt">decimal</span><span class="p">.</span><span class="n">TryParse</span><span class="p">(</span><span class="n">input</span><span class="p">,</span> <span class="k">out</span> <span class="n">output</span><span class="p">))</span>
 <span class="p">{</span>
@@ -382,37 +407,14 @@
   </div>
 </article>
 
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/c-%E6%89%98%E7%AE%A1%E5%A0%86%E5%92%8C%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/">C#托管堆和垃圾回收</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2021-02-05 </span>
-      <div class="post-category">
-          <a href="/categories/.net/"> .NET </a>
-          </div>
-        <span class="more-meta"> 约 903 字 </span>
-        <span class="more-meta"> 预计阅读 2 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      <h2 id="托管堆基础">托管堆基础</h2>
-<h3 id="分配资源">分配资源</h3>
-<p>C#要求所有对象都从<strong>托管堆</strong>分配。进程初始化时，<code>CLR</code>划出一个地址空间区域作为托管堆。<code>CLR</code>还会维护一个叫<code>NextObjPtr</code>的指针，该指针指向下一个对象在堆中的位置。</p>
-<p>一个区域被非垃圾填满后，<code>CLR</code>会分配更多的区域出来，一直重复，直到进程地址空间被填满。(32位进程最多能分配1.5GB;64位进程最多能分配8TB)</p>
-    </div>
-    <div class="read-more">
-      <a href="/post/c-%E6%89%98%E7%AE%A1%E5%A0%86%E5%92%8C%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
     </section>
   
   <nav class="pagination">
     
-    
+    <a class="next" href="/page/2/">
+        <span class="next-text">下一页</span>
+        <i class="iconfont icon-right"></i>
+      </a>
   </nav>
         </div>
         
@@ -428,10 +430,10 @@
   
 
   <span class="copyright-year">
-    &copy; 
-    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>九零</span>
-    <span>| Powered by<a class="hexo-link" href="https://gohugo.io"> Hugo</a></span>
-    <span>| Theme -<a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even"> Even</a></span>    
+    
+    <span><a class="hexo-link" href="https://jiuling.me"><img src="https://img.shields.io/badge/%C2%A9%202021-%E4%B9%9D%E9%9B%B6-green"></a></span>
+    <span><a class="hexo-link" href="https://gohugo.io"><img src="https://img.shields.io/badge/Powered%20by-Hugo-important"></a></span>
+    <span><a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even"><img src="https://img.shields.io/badge/Theme-Even-9cf"></a></span>    
   </span>
 </div>
 

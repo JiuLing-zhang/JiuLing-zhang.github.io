@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>聊聊Navicat造成的数据库死锁问题 - 码术-一个皇马球迷的博客而已</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="九零" /><meta name="description" content="Navicat是我比较喜欢的一款工具了，虽然我没有买正版😥😥不过最近经常遇到有小伙伴说“Navicat会导致死锁，不要用”、“Navicat会锁表”等等，于是就有了这篇文章，今天就来聊聊什么情况下会导致死锁。
+其实在大多时候，使用Navicat造成死锁的原因都是因为操作不当引起的（基本都是因为图形化界面操作导致）。
+下面直接进入正题👇👇
+" /><meta name="keywords" content="码术" />
+
+
+
+
+
+<meta name="generator" content="Hugo 0.86.0 with theme even" />
+
+
+<link rel="canonical" href="https://jiuling.me/post/%E8%81%8A%E8%81%8Anavicat%E9%80%A0%E6%88%90%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" /><meta property="og:title" content="聊聊Navicat造成的数据库死锁问题" />
+<meta property="og:description" content="Navicat是我比较喜欢的一款工具了，虽然我没有买正版😥😥不过最近经常遇到有小伙伴说“Navicat会导致死锁，不要用”、“Navicat会锁表”等等，于是就有了这篇文章，今天就来聊聊什么情况下会导致死锁。
+其实在大多时候，使用Navicat造成死锁的原因都是因为操作不当引起的（基本都是因为图形化界面操作导致）。
+下面直接进入正题👇👇" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://jiuling.me/post/%E8%81%8A%E8%81%8Anavicat%E9%80%A0%E6%88%90%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-07-23T19:44:51+08:00" />
+<meta property="article:modified_time" content="2021-07-23T19:44:51+08:00" />
+
+<meta itemprop="name" content="聊聊Navicat造成的数据库死锁问题">
+<meta itemprop="description" content="Navicat是我比较喜欢的一款工具了，虽然我没有买正版😥😥不过最近经常遇到有小伙伴说“Navicat会导致死锁，不要用”、“Navicat会锁表”等等，于是就有了这篇文章，今天就来聊聊什么情况下会导致死锁。
+其实在大多时候，使用Navicat造成死锁的原因都是因为操作不当引起的（基本都是因为图形化界面操作导致）。
+下面直接进入正题👇👇"><meta itemprop="datePublished" content="2021-07-23T19:44:51+08:00" />
+<meta itemprop="dateModified" content="2021-07-23T19:44:51+08:00" />
+<meta itemprop="wordCount" content="629">
+<meta itemprop="keywords" content="Navicat,SQL Server," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="聊聊Navicat造成的数据库死锁问题"/>
+<meta name="twitter:description" content="Navicat是我比较喜欢的一款工具了，虽然我没有买正版😥😥不过最近经常遇到有小伙伴说“Navicat会导致死锁，不要用”、“Navicat会锁表”等等，于是就有了这篇文章，今天就来聊聊什么情况下会导致死锁。
+其实在大多时候，使用Navicat造成死锁的原因都是因为操作不当引起的（基本都是因为图形化界面操作导致）。
+下面直接进入正题👇👇"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">码术</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">时间线</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">码术</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li style="display:inline-block;margin-right:10px;">
+      <input type="search" class="docsearch-input" placeholder="搜索" />
+    </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">时间线</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about">关于</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">聊聊Navicat造成的数据库死锁问题</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-07-23 </span>
+        <div class="post-category">
+            <a href="/categories/%E9%82%A3%E4%BA%9B%E5%B9%B4%E9%87%8C%E7%9A%84%E9%82%A3%E4%BA%9B%E5%9D%91/"> 那些年里的那些坑 </a>
+            </div>
+          <span class="more-meta"> 约 629 字 </span>
+          <span class="more-meta"> 预计阅读 2 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#环境">环境</a></li>
+        <li><a href="#死锁演示">死锁演示</a>
+          <ul>
+            <li><a href="#事务中使用刷新">事务中使用刷新</a></li>
+            <li><a href="#事务中使用筛选">事务中使用筛选</a></li>
+          </ul>
+        </li>
+        <li><a href="#总结">总结</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p><code>Navicat</code>是我比较喜欢的一款工具了，虽然我没有买正版😥😥不过最近经常遇到有小伙伴说“<code>Navicat</code>会导致死锁，不要用”、“<code>Navicat</code>会锁表”等等，于是就有了这篇文章，今天就来聊聊什么情况下会导致死锁。<br>
+其实在大多时候，使用<code>Navicat</code>造成死锁的原因都是因为操作不当引起的（基本都是因为图形化界面操作导致）。<br>
+下面直接进入正题👇👇</p>
+<h2 id="环境">环境</h2>
+<p>数据库：<code>SQL Server</code><br>
+客户端：<code>Navicat 12.1</code></p>
+<h2 id="死锁演示">死锁演示</h2>
+<h3 id="事务中使用刷新">事务中使用刷新</h3>
+<p>先来一张<code>GIF</code>直观的感受一下<br>
+<img src="https://i.loli.net/2021/07/23/cHoOZzjV3eiwyKD.gif" alt="Lock1.gif">
+具体步骤：</p>
+<ol>
+<li>打开数据表</li>
+<li>点击<strong>开始事务</strong>开始事务</li>
+<li>添加一条数据（也可以啥都不操作）</li>
+<li>点击下方的<strong>刷新</strong>按钮两次</li>
+<li>恭喜你！啥也干不了了~~~ 老老实实<code>Ctrl</code>+<code>Alt</code>+<code>Del</code>吧</li>
+</ol>
+<p>数据库检查一下，果然死锁。</p>
+<blockquote>
+<p>如果第三步啥也不操作，那么是不会死锁的，只会造成客户端崩溃</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-SQL" data-lang="SQL"><span class="k">SELECT</span><span class="w"> </span><span class="n">request_session_id</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="n">OBJECT_NAME</span><span class="p">(</span><span class="n">resource_associated_entity_id</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="s1">&#39;table&#39;</span><span class="w"> 
+</span><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">dm_tran_locks</span><span class="w"> 
+</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="n">resource_type</span><span class="o">=</span><span class="s1">&#39;OBJECT&#39;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><img src="https://i.loli.net/2021/07/23/zo28khemwQpJbG9.png" alt="Lock1.png"></p>
+<h3 id="事务中使用筛选">事务中使用筛选</h3>
+<p>先来一张<code>GIF</code>直观的感受一下<br>
+<img src="https://i.loli.net/2021/07/23/l1c34rugDjXFZN9.gif" alt="Lock2.gif">
+具体步骤：</p>
+<ol>
+<li>打开数据表</li>
+<li>先对对数据进行一次筛选</li>
+<li>点击<strong>开始事务</strong>开始事务</li>
+<li>添加一条数据（新增数据<strong>必须满足步骤2和5中</strong>中的筛选条件）</li>
+<li>修改新的筛选条件</li>
+<li>弹窗报错</li>
+<li>点击<strong>提交事务</strong></li>
+<li>恭喜你，<code>Navicat</code>直接挂掉了</li>
+</ol>
+<h2 id="总结">总结</h2>
+<p>其实上述的两种情况，无外乎都是在<strong>事务</strong>中使用了<strong>查询</strong>、<strong>筛选</strong>等操作。所以小伙伴们以后在使用<code>Navicat</code>时只要注意一下几点，剩下的就放心大胆的用就好了。敲黑板</p>
+<ul>
+<li>需要进行事务操作时，尽量减少使用</li>
+<li>如果非得在界面进行事务操作，那么就快速处理完数据然后提交。免得其他人打个岔什么的后自己也忘记了，然后小手一抖，又点了刷新按钮</li>
+</ul>
+<p><del>是不是可以去给开发者提两个可复现的<code>BUG</code>了</del></p>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">九零</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-07-23
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/navicat/">Navicat</a>
+          <a href="/tags/sql-server/">SQL Server</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/%E5%AE%9E%E7%94%A8%E7%BD%91%E7%AB%99%E5%92%8C%E9%AB%98%E6%95%88%E5%B0%8F%E5%B7%A5%E5%85%B7%E6%B1%87%E6%80%BB%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">冷门网站和工具汇总（不定期更新）</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/">
+            <span class="next-text nav-default">设计模式-原型模式</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+</div>
+
+<div class="copyright">
+  
+
+  <span class="copyright-year">
+    
+    <span><a class="hexo-link" href="https://jiuling.me"><img src="https://img.shields.io/badge/%C2%A9%202021-%E4%B9%9D%E9%9B%B6-green"></a></span>
+    <span><a class="hexo-link" href="https://gohugo.io"><img src="https://img.shields.io/badge/Powered%20by-Hugo-important"></a></span>
+    <span><a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even"><img src="https://img.shields.io/badge/Theme-Even-9cf"></a></span>    
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script>
+    docsearch({
+    apiKey: "da84c0023d923bc94c9a393003235106",
+    indexName: "jiuling.me",
+    appId: "7I30FB6OZ7",
+    inputSelector: '.docsearch-input',
+    debug: false,
+    });
+</script>
+</body>
+</html>

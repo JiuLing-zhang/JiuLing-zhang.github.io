@@ -22,8 +22,7 @@
 
 
 
-
-<meta name="generator" content="Hugo 0.81.0 with theme even" />
+<meta name="generator" content="Hugo 0.86.0 with theme even" />
 
 
 <link rel="canonical" href="https://jiuling.me/" />
@@ -41,7 +40,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="码术-一个皇马球迷的博客而已" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" /><meta property="og:title" content="码术-一个皇马球迷的博客而已" />
 <meta property="og:description" content="一个皇马球迷的博客而已" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://jiuling.me/" />
@@ -74,10 +73,8 @@
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/">
-        <li class="mobile-menu-item">主页</li>
-      </a><a href="/post/">
-        <li class="mobile-menu-item">归档</li>
+    <a href="/post/">
+        <li class="mobile-menu-item">时间线</li>
       </a><a href="/tags/">
         <li class="mobile-menu-item">标签</li>
       </a><a href="/categories/">
@@ -104,10 +101,10 @@
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
-    <li class="menu-item">
-        <a class="menu-item-link" href="/">主页</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">归档</a>
+    <li style="display:inline-block;margin-right:10px;">
+      <input type="search" class="docsearch-input" placeholder="搜索" />
+    </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">时间线</a>
       </li><li class="menu-item">
         <a class="menu-item-link" href="/tags/">标签</a>
       </li><li class="menu-item">
@@ -167,24 +164,16 @@
 
     <footer id="footer" class="footer">
       <div class="social-links">
-  <a href="https://jiuling.me/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
-  <span class="power-by">
-    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    主题 - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
-  </span>
-
   
 
   <span class="copyright-year">
-    &copy; 
-    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>九零</span>
+    
+    <span><a class="hexo-link" href="https://jiuling.me"><img src="https://img.shields.io/badge/%C2%A9%202021-%E4%B9%9D%E9%9B%B6-green"></a></span>
+    <span><a class="hexo-link" href="https://gohugo.io"><img src="https://img.shields.io/badge/Powered%20by-Hugo-important"></a></span>
+    <span><a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even"><img src="https://img.shields.io/badge/Theme-Even-9cf"></a></span>    
   </span>
 </div>
 
@@ -210,5 +199,15 @@
 
 
 
+<script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script>
+    docsearch({
+    apiKey: "da84c0023d923bc94c9a393003235106",
+    indexName: "jiuling.me",
+    appId: "7I30FB6OZ7",
+    inputSelector: '.docsearch-input',
+    debug: false,
+    });
+</script>
 </body>
 </html>

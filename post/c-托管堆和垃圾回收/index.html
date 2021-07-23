@@ -24,7 +24,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.81.0 with theme even" />
+<meta name="generator" content="Hugo 0.86.0 with theme even" />
 
 
 <link rel="canonical" href="https://jiuling.me/post/c-%E6%89%98%E7%AE%A1%E5%A0%86%E5%92%8C%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" />
@@ -47,15 +47,15 @@ C#要求所有对象都从托管堆分配。进程初始化时，CLR划出一个
 一个区域被非垃圾填满后，CLR会分配更多的区域出来，一直重复，直到进程地址空间被填满。(32位进程最多能分配1.5GB;64位进程最多能分配8TB)" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://jiuling.me/post/c-%E6%89%98%E7%AE%A1%E5%A0%86%E5%92%8C%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2021-02-05T21:55:58&#43;08:00" />
-<meta property="article:modified_time" content="2021-02-05T21:55:58&#43;08:00" />
+<meta property="article:published_time" content="2021-02-05T21:55:58+08:00" />
+<meta property="article:modified_time" content="2021-02-05T21:55:58+08:00" />
 
 <meta itemprop="name" content="C#托管堆和垃圾回收">
 <meta itemprop="description" content="托管堆基础
 分配资源
 C#要求所有对象都从托管堆分配。进程初始化时，CLR划出一个地址空间区域作为托管堆。CLR还会维护一个叫NextObjPtr的指针，该指针指向下一个对象在堆中的位置。
-一个区域被非垃圾填满后，CLR会分配更多的区域出来，一直重复，直到进程地址空间被填满。(32位进程最多能分配1.5GB;64位进程最多能分配8TB)"><meta itemprop="datePublished" content="2021-02-05T21:55:58&#43;08:00" />
-<meta itemprop="dateModified" content="2021-02-05T21:55:58&#43;08:00" />
+一个区域被非垃圾填满后，CLR会分配更多的区域出来，一直重复，直到进程地址空间被填满。(32位进程最多能分配1.5GB;64位进程最多能分配8TB)"><meta itemprop="datePublished" content="2021-02-05T21:55:58+08:00" />
+<meta itemprop="dateModified" content="2021-02-05T21:55:58+08:00" />
 <meta itemprop="wordCount" content="903">
 <meta itemprop="keywords" content=".NET,C#,垃圾回收," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="C#托管堆和垃圾回收"/>
@@ -258,10 +258,10 @@ C#要求所有对象都从托管堆分配。进程初始化时，CLR划出一个
   
 
   <span class="copyright-year">
-    &copy; 
-    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>九零</span>
-    <span>| Powered by<a class="hexo-link" href="https://gohugo.io"> Hugo</a></span>
-    <span>| Theme -<a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even"> Even</a></span>    
+    
+    <span><a class="hexo-link" href="https://jiuling.me"><img src="https://img.shields.io/badge/%C2%A9%202021-%E4%B9%9D%E9%9B%B6-green"></a></span>
+    <span><a class="hexo-link" href="https://gohugo.io"><img src="https://img.shields.io/badge/Powered%20by-Hugo-important"></a></span>
+    <span><a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even"><img src="https://img.shields.io/badge/Theme-Even-9cf"></a></span>    
   </span>
 </div>
 

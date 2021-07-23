@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Navicat on 码术-一个皇马球迷的博客而已</title>
+    <link>https://jiuling.me/tags/navicat/</link>
+    <description>Recent content in Navicat on 码术-一个皇马球迷的博客而已</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 23 Jul 2021 19:44:51 +0800</lastBuildDate><atom:link href="https://jiuling.me/tags/navicat/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>聊聊Navicat造成的数据库死锁问题</title>
+      <link>https://jiuling.me/post/%E8%81%8A%E8%81%8Anavicat%E9%80%A0%E6%88%90%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Fri, 23 Jul 2021 19:44:51 +0800</pubDate>
+      
+      <guid>https://jiuling.me/post/%E8%81%8A%E8%81%8Anavicat%E9%80%A0%E6%88%90%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98/</guid>
+      <description>&lt;p&gt;&lt;code&gt;Navicat&lt;/code&gt;是我比较喜欢的一款工具了，虽然我没有买正版😥😥不过最近经常遇到有小伙伴说“&lt;code&gt;Navicat&lt;/code&gt;会导致死锁，不要用”、“&lt;code&gt;Navicat&lt;/code&gt;会锁表”等等，于是就有了这篇文章，今天就来聊聊什么情况下会导致死锁。&lt;br&gt;
+其实在大多时候，使用&lt;code&gt;Navicat&lt;/code&gt;造成死锁的原因都是因为操作不当引起的（基本都是因为图形化界面操作导致）。&lt;br&gt;
+下面直接进入正题👇👇&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -24,7 +24,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.81.0 with theme even" />
+<meta name="generator" content="Hugo 0.86.0 with theme even" />
 
 
 <link rel="canonical" href="https://jiuling.me/post/c-%E5%9F%BA%E5%85%83%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5%E6%9E%84%E9%80%A0/" />
@@ -45,13 +45,13 @@
 有两种基元构造：用户模式构造和内核模式构造。应尽量使用用户模式构造，它们的速度要比内核构造快很多，因为他们使用了特殊的CPU指令来协调线程（意味着协调是在硬件中发生，所以会快很多）。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://jiuling.me/post/c-%E5%9F%BA%E5%85%83%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5%E6%9E%84%E9%80%A0/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2021-03-01T21:54:13&#43;08:00" />
-<meta property="article:modified_time" content="2021-03-01T21:54:13&#43;08:00" />
+<meta property="article:published_time" content="2021-03-01T21:54:13+08:00" />
+<meta property="article:modified_time" content="2021-03-01T21:54:13+08:00" />
 
 <meta itemprop="name" content="C#基元线程同步构造">
 <meta itemprop="description" content="基元是指可以在代码中使用的最简单的构造。
-有两种基元构造：用户模式构造和内核模式构造。应尽量使用用户模式构造，它们的速度要比内核构造快很多，因为他们使用了特殊的CPU指令来协调线程（意味着协调是在硬件中发生，所以会快很多）。"><meta itemprop="datePublished" content="2021-03-01T21:54:13&#43;08:00" />
-<meta itemprop="dateModified" content="2021-03-01T21:54:13&#43;08:00" />
+有两种基元构造：用户模式构造和内核模式构造。应尽量使用用户模式构造，它们的速度要比内核构造快很多，因为他们使用了特殊的CPU指令来协调线程（意味着协调是在硬件中发生，所以会快很多）。"><meta itemprop="datePublished" content="2021-03-01T21:54:13+08:00" />
+<meta itemprop="dateModified" content="2021-03-01T21:54:13+08:00" />
 <meta itemprop="wordCount" content="5876">
 <meta itemprop="keywords" content="线程同步,Volatile," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="C#基元线程同步构造"/>
@@ -181,7 +181,7 @@
 <p>这些描述读起来比较绕口，那么我们通过一个示例来演示以下<code>volatile</code>的基本用法。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -213,12 +213,12 @@
 </span><span class="lnt">30
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-C#" data-lang="C#">    <span class="c1">/// &lt;summary&gt;
+<pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#">    <span class="c1">/// &lt;summary&gt;
 </span><span class="c1"></span>    <span class="c1">/// 定义测试类
 </span><span class="c1"></span>    <span class="c1">/// &lt;/summary&gt;
 </span><span class="c1"></span>    <span class="k">public</span> <span class="k">class</span> <span class="nc">VolatileTest</span>
     <span class="p">{</span>
-        <span class="k">private</span> <span class="kt">bool</span> <span class="n">_isStop</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+        <span class="k">private</span> <span class="kt">bool</span> <span class="m">_</span><span class="n">isStop</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
         <span class="k">public</span> <span class="k">void</span> <span class="n">Do</span><span class="p">()</span>
         <span class="p">{</span>
             <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;任务开始&#34;</span><span class="p">);</span>
@@ -226,7 +226,7 @@
             <span class="n">th</span><span class="p">.</span><span class="n">Start</span><span class="p">();</span>
 
             <span class="n">Thread</span><span class="p">.</span><span class="n">Sleep</span><span class="p">(</span><span class="m">5000</span><span class="p">);</span>
-            <span class="n">_isStop</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
+            <span class="m">_</span><span class="n">isStop</span> <span class="p">=</span> <span class="k">true</span><span class="p">;</span>
             <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;等待任务完成&#34;</span><span class="p">);</span>
             <span class="n">th</span><span class="p">.</span><span class="n">Join</span><span class="p">();</span>
 
@@ -236,7 +236,7 @@
         <span class="k">public</span> <span class="k">void</span> <span class="n">Thread1</span><span class="p">()</span>
         <span class="p">{</span>
             <span class="kt">int</span> <span class="n">x</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
-            <span class="k">while</span> <span class="p">(!</span><span class="n">_isStop</span><span class="p">)</span>
+            <span class="k">while</span> <span class="p">(!</span><span class="m">_</span><span class="n">isStop</span><span class="p">)</span>
             <span class="p">{</span>
                 <span class="n">x</span> <span class="p">=</span> <span class="n">x</span> <span class="p">+</span> <span class="m">1</span><span class="p">;</span>
             <span class="p">}</span>
@@ -247,14 +247,14 @@
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-C#" data-lang="C#">        <span class="k">static</span> <span class="k">void</span> <span class="n">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+<pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#">        <span class="k">static</span> <span class="k">void</span> <span class="n">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
         <span class="p">{</span>
             <span class="c1">//调用测试方法
 </span><span class="c1"></span>            <span class="k">new</span> <span class="n">VolatileTest</span><span class="p">().</span><span class="n">Do</span><span class="p">();</span>
@@ -285,27 +285,27 @@
 所以重新修改<code>_isStop</code>变量的定义即可修正前面的问题。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-C#" data-lang="C#"><span class="k">private</span> <span class="n">volatile</span> <span class="kt">bool</span> <span class="n">_isStop</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+<pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="k">private</span> <span class="n">volatile</span> <span class="kt">bool</span> <span class="m">_</span><span class="n">isStop</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>另外，<code>System.Threading.Volatile</code>类还提供了以下两个静态方法来进行变量的读写🔻</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-C#" data-lang="C#">            <span class="n">Volatile</span><span class="p">.</span><span class="n">Read</span><span class="p">(</span><span class="k">ref</span> <span class="n">_isStop</span><span class="p">);</span>
-            <span class="n">Volatile</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="k">ref</span> <span class="n">_isStop</span><span class="p">,</span><span class="k">true</span><span class="p">);</span>
+<pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#">            <span class="n">Volatile</span><span class="p">.</span><span class="n">Read</span><span class="p">(</span><span class="k">ref</span> <span class="m">_</span><span class="n">isStop</span><span class="p">);</span>
+            <span class="n">Volatile</span><span class="p">.</span><span class="n">Write</span><span class="p">(</span><span class="k">ref</span> <span class="m">_</span><span class="n">isStop</span><span class="p">,</span><span class="k">true</span><span class="p">);</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>因此通过如下代码也可以修正前面的问题：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -317,11 +317,11 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-C#" data-lang="C#">        <span class="k">public</span> <span class="k">void</span> <span class="n">Thread1</span><span class="p">()</span>
+<pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#">        <span class="k">public</span> <span class="k">void</span> <span class="n">Thread1</span><span class="p">()</span>
         <span class="p">{</span>
             <span class="kt">int</span> <span class="n">x</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
             <span class="c1">//这里使用Volatile.Read来读取最新的值
-</span><span class="c1"></span>            <span class="k">while</span> <span class="p">(!</span><span class="n">Volatile</span><span class="p">.</span><span class="n">Read</span><span class="p">(</span><span class="k">ref</span> <span class="n">_isStop</span><span class="p">))</span>
+</span><span class="c1"></span>            <span class="k">while</span> <span class="p">(!</span><span class="n">Volatile</span><span class="p">.</span><span class="n">Read</span><span class="p">(</span><span class="k">ref</span> <span class="m">_</span><span class="n">isStop</span><span class="p">))</span>
             <span class="p">{</span>
                 <span class="n">x</span> <span class="p">=</span> <span class="n">x</span> <span class="p">+</span> <span class="m">1</span><span class="p">;</span>
             <span class="p">}</span>
@@ -344,7 +344,7 @@
 该示例使用<code>HttpClient</code>对指定的服务器请求，并显示请求返回的字节数🔻</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -355,7 +355,7 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-C#" data-lang="C#">    <span class="c1">/// &lt;summary&gt;
+<pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#">    <span class="c1">/// &lt;summary&gt;
 </span><span class="c1"></span>    <span class="c1">/// 服务器请求状态
 </span><span class="c1"></span>    <span class="c1">/// &lt;/summary&gt;
 </span><span class="c1"></span>    <span class="k">public</span> <span class="k">enum</span> <span class="n">CoordinationStatus</span>
@@ -368,7 +368,7 @@
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -461,18 +461,18 @@
 </span><span class="lnt">91
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-C#" data-lang="C#">    <span class="c1">/// &lt;summary&gt;
+<pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#">    <span class="c1">/// &lt;summary&gt;
 </span><span class="c1"></span>    <span class="c1">/// 定义测试类
 </span><span class="c1"></span>    <span class="c1">/// &lt;/summary&gt;
 </span><span class="c1"></span>    <span class="k">public</span> <span class="k">class</span> <span class="nc">InterlockedTest</span>
     <span class="p">{</span>
         <span class="c1">//这个辅助类用于协调所有异步操作
-</span><span class="c1"></span>        <span class="k">private</span> <span class="k">readonly</span> <span class="n">AsyncCoordinator</span> <span class="n">_ac</span> <span class="p">=</span> <span class="k">new</span> <span class="n">AsyncCoordinator</span><span class="p">();</span>
+</span><span class="c1"></span>        <span class="k">private</span> <span class="k">readonly</span> <span class="n">AsyncCoordinator</span> <span class="m">_</span><span class="n">ac</span> <span class="p">=</span> <span class="k">new</span> <span class="n">AsyncCoordinator</span><span class="p">();</span>
 
         <span class="c1">//这是想要查询的web服务器及其响应（异常或int）的集合
 </span><span class="c1"></span>        <span class="c1">//注意：多个线程访问该字典不需要以同步方式进行
 </span><span class="c1"></span>        <span class="c1">//因为构造后键就是只读的
-</span><span class="c1"></span>        <span class="k">private</span> <span class="k">readonly</span> <span class="n">Dictionary</span><span class="p">&lt;</span><span class="n">String</span><span class="p">,</span> <span class="n">Object</span><span class="p">&gt;</span> <span class="n">_remoteServers</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="kt">object</span><span class="p">&gt;</span> <span class="p">{</span>
+</span><span class="c1"></span>        <span class="k">private</span> <span class="k">readonly</span> <span class="n">Dictionary</span><span class="p">&lt;</span><span class="n">String</span><span class="p">,</span> <span class="n">Object</span><span class="p">&gt;</span> <span class="m">_</span><span class="n">remoteServers</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="kt">object</span><span class="p">&gt;</span> <span class="p">{</span>
         <span class="p">{</span><span class="s">&#34;https://www.microsoft.com&#34;</span> <span class="p">,</span><span class="k">null</span><span class="p">},</span>
         <span class="p">{</span><span class="s">&#34;https://www.bing.com&#34;</span><span class="p">,</span><span class="k">null</span><span class="p">},</span>
         <span class="p">{</span><span class="s">&#34;https://www.google.com&#34;</span><span class="p">,</span><span class="k">null</span><span class="p">}</span>
@@ -480,9 +480,9 @@
         <span class="k">public</span> <span class="k">void</span> <span class="n">Do</span><span class="p">(</span><span class="kt">int</span> <span class="n">timeout</span> <span class="p">=</span> <span class="n">Timeout</span><span class="p">.</span><span class="n">Infinite</span><span class="p">)</span>
         <span class="p">{</span>
             <span class="kt">var</span> <span class="n">httpClient</span> <span class="p">=</span> <span class="k">new</span> <span class="n">HttpClient</span><span class="p">();</span>
-            <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">server</span> <span class="k">in</span> <span class="n">_remoteServers</span><span class="p">.</span><span class="n">Keys</span><span class="p">)</span>
+            <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">server</span> <span class="k">in</span> <span class="m">_</span><span class="n">remoteServers</span><span class="p">.</span><span class="n">Keys</span><span class="p">)</span>
             <span class="p">{</span>
-                <span class="n">_ac</span><span class="p">.</span><span class="n">AboutToBegin</span><span class="p">(</span><span class="m">1</span><span class="p">);</span><span class="c1">//这里也可以修改为下面注释中的方式
+                <span class="m">_</span><span class="n">ac</span><span class="p">.</span><span class="n">AboutToBegin</span><span class="p">(</span><span class="m">1</span><span class="p">);</span><span class="c1">//这里也可以修改为下面注释中的方式
 </span><span class="c1"></span>                <span class="n">httpClient</span><span class="p">.</span><span class="n">GetByteArrayAsync</span><span class="p">(</span><span class="n">server</span><span class="p">).</span><span class="n">ContinueWith</span><span class="p">(</span><span class="n">task</span> <span class="p">=&gt;</span> <span class="n">ComputeResult</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="n">task</span><span class="p">));</span>
             <span class="p">}</span>
 
@@ -495,7 +495,7 @@
 </span><span class="c1"></span>
             <span class="c1">//告诉AsyncCoordinator所有操作都已发起，并在所有操作完成
 </span><span class="c1"></span>            <span class="c1">//调用Cancel或者发生超时的时候调用AllDone
-</span><span class="c1"></span>            <span class="n">_ac</span><span class="p">.</span><span class="n">AllBegun</span><span class="p">(</span><span class="n">AllDone</span><span class="p">,</span> <span class="n">timeout</span><span class="p">);</span>
+</span><span class="c1"></span>            <span class="m">_</span><span class="n">ac</span><span class="p">.</span><span class="n">AllBegun</span><span class="p">(</span><span class="n">AllDone</span><span class="p">,</span> <span class="n">timeout</span><span class="p">);</span>
         <span class="p">}</span>
         <span class="k">private</span> <span class="k">void</span> <span class="n">ComputeResult</span><span class="p">(</span><span class="kt">string</span> <span class="n">server</span><span class="p">,</span> <span class="n">Task</span><span class="p">&lt;</span><span class="n">Byte</span><span class="p">[]&gt;</span> <span class="n">task</span><span class="p">)</span>
         <span class="p">{</span>
@@ -512,14 +512,14 @@
 </span><span class="c1"></span>                <span class="n">result</span> <span class="p">=</span> <span class="n">task</span><span class="p">.</span><span class="n">Result</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span>
             <span class="p">}</span>
             <span class="c1">//保存结果(exception/sum)，指出1个操作完成
-</span><span class="c1"></span>            <span class="n">_remoteServers</span><span class="p">[</span><span class="n">server</span><span class="p">]</span> <span class="p">=</span> <span class="n">result</span><span class="p">;</span>
-            <span class="n">_ac</span><span class="p">.</span><span class="n">JustEnded</span><span class="p">();</span>
+</span><span class="c1"></span>            <span class="m">_</span><span class="n">remoteServers</span><span class="p">[</span><span class="n">server</span><span class="p">]</span> <span class="p">=</span> <span class="n">result</span><span class="p">;</span>
+            <span class="m">_</span><span class="n">ac</span><span class="p">.</span><span class="n">JustEnded</span><span class="p">();</span>
         <span class="p">}</span>
 
         <span class="c1">//调用这个方法指出结果已无关紧要
 </span><span class="c1"></span>        <span class="k">public</span> <span class="k">void</span> <span class="n">Cancel</span><span class="p">()</span>
         <span class="p">{</span>
-            <span class="n">_ac</span><span class="p">.</span><span class="n">Cancel</span><span class="p">();</span>
+            <span class="m">_</span><span class="n">ac</span><span class="p">.</span><span class="n">Cancel</span><span class="p">();</span>
         <span class="p">}</span>
 
         <span class="c1">//所有Web服务器都响应、调用了Cancel或者发生超时，就调用该方法
@@ -535,7 +535,7 @@
                     <span class="k">break</span><span class="p">;</span>
                 <span class="k">case</span> <span class="n">CoordinationStatus</span><span class="p">.</span><span class="n">AllDone</span><span class="p">:</span>
                     <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;请求完成，结果：&#34;</span><span class="p">);</span>
-                    <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">server</span> <span class="k">in</span> <span class="n">_remoteServers</span><span class="p">)</span>
+                    <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">server</span> <span class="k">in</span> <span class="m">_</span><span class="n">remoteServers</span><span class="p">)</span>
                     <span class="p">{</span>
                         <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&#34;{server.Key}&#34;</span><span class="p">);</span>
                         <span class="kt">object</span> <span class="n">result</span> <span class="p">=</span> <span class="n">server</span><span class="p">.</span><span class="n">Value</span><span class="p">;</span>
@@ -556,7 +556,7 @@
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -614,27 +614,27 @@
 </span><span class="lnt">56
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-C#" data-lang="C#">    <span class="c1">/// &lt;summary&gt;
+<pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#">    <span class="c1">/// &lt;summary&gt;
 </span><span class="c1"></span>    <span class="c1">/// 这个辅助类用于协调所有异步操作
 </span><span class="c1"></span>    <span class="c1">/// &lt;/summary&gt;
 </span><span class="c1"></span>    <span class="k">public</span> <span class="k">class</span> <span class="nc">AsyncCoordinator</span>
     <span class="p">{</span>
         <span class="c1">//AllBegun内部调用JustEnded来递减它
-</span><span class="c1"></span>        <span class="k">private</span> <span class="kt">int</span> <span class="n">_opCount</span> <span class="p">=</span> <span class="m">1</span><span class="p">;</span>
+</span><span class="c1"></span>        <span class="k">private</span> <span class="kt">int</span> <span class="m">_</span><span class="n">opCount</span> <span class="p">=</span> <span class="m">1</span><span class="p">;</span>
         <span class="c1">//0 = false  1= true
-</span><span class="c1"></span>        <span class="k">private</span> <span class="kt">int</span> <span class="n">_statusReported</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
-        <span class="k">private</span> <span class="n">Action</span><span class="p">&lt;</span><span class="n">CoordinationStatus</span><span class="p">&gt;</span> <span class="n">_callback</span><span class="p">;</span>
-        <span class="k">private</span> <span class="n">Timer</span> <span class="n">_timer</span><span class="p">;</span>
+</span><span class="c1"></span>        <span class="k">private</span> <span class="kt">int</span> <span class="m">_</span><span class="n">statusReported</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+        <span class="k">private</span> <span class="n">Action</span><span class="p">&lt;</span><span class="n">CoordinationStatus</span><span class="p">&gt;</span> <span class="m">_</span><span class="n">callback</span><span class="p">;</span>
+        <span class="k">private</span> <span class="n">Timer</span> <span class="m">_</span><span class="n">timer</span><span class="p">;</span>
 
         <span class="c1">//该方法必须在发起一个操作之前调用
 </span><span class="c1"></span>        <span class="k">public</span> <span class="k">void</span> <span class="n">AboutToBegin</span><span class="p">(</span><span class="kt">int</span> <span class="n">opsToAdd</span> <span class="p">=</span> <span class="m">1</span><span class="p">)</span>
         <span class="p">{</span>
-            <span class="n">Interlocked</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">ref</span> <span class="n">_opCount</span><span class="p">,</span> <span class="n">opsToAdd</span><span class="p">);</span>
+            <span class="n">Interlocked</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="k">ref</span> <span class="m">_</span><span class="n">opCount</span><span class="p">,</span> <span class="n">opsToAdd</span><span class="p">);</span>
         <span class="p">}</span>
         <span class="c1">//该方法必须在处理好一个操作的结果之后调用
 </span><span class="c1"></span>        <span class="k">public</span> <span class="k">void</span> <span class="n">JustEnded</span><span class="p">()</span>
         <span class="p">{</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">Interlocked</span><span class="p">.</span><span class="n">Decrement</span><span class="p">(</span><span class="k">ref</span> <span class="n">_opCount</span><span class="p">)</span> <span class="p">==</span> <span class="m">0</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">Interlocked</span><span class="p">.</span><span class="n">Decrement</span><span class="p">(</span><span class="k">ref</span> <span class="m">_</span><span class="n">opCount</span><span class="p">)</span> <span class="p">==</span> <span class="m">0</span><span class="p">)</span>
             <span class="p">{</span>
                 <span class="n">ReportStatus</span><span class="p">(</span><span class="n">CoordinationStatus</span><span class="p">.</span><span class="n">AllDone</span><span class="p">);</span>
             <span class="p">}</span>
@@ -643,10 +643,10 @@
         <span class="c1">//该方法必须在发起所有操作之后调用
 </span><span class="c1"></span>        <span class="k">public</span> <span class="k">void</span> <span class="n">AllBegun</span><span class="p">(</span><span class="n">Action</span><span class="p">&lt;</span><span class="n">CoordinationStatus</span><span class="p">&gt;</span> <span class="n">callback</span><span class="p">,</span> <span class="kt">int</span> <span class="n">timeout</span> <span class="p">=</span> <span class="n">Timeout</span><span class="p">.</span><span class="n">Infinite</span><span class="p">)</span>
         <span class="p">{</span>
-            <span class="n">_callback</span> <span class="p">=</span> <span class="n">callback</span><span class="p">;</span>
+            <span class="m">_</span><span class="n">callback</span> <span class="p">=</span> <span class="n">callback</span><span class="p">;</span>
             <span class="k">if</span> <span class="p">(</span><span class="n">timeout</span> <span class="p">!=</span> <span class="n">Timeout</span><span class="p">.</span><span class="n">Infinite</span><span class="p">)</span>
             <span class="p">{</span>
-                <span class="n">_timer</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Timer</span><span class="p">(</span><span class="n">TimeExpired</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">Timeout</span><span class="p">.</span><span class="n">Infinite</span><span class="p">);</span>
+                <span class="m">_</span><span class="n">timer</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Timer</span><span class="p">(</span><span class="n">TimeExpired</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span> <span class="n">Timeout</span><span class="p">.</span><span class="n">Infinite</span><span class="p">);</span>
             <span class="p">}</span>
             <span class="n">JustEnded</span><span class="p">();</span>
         <span class="p">}</span>
@@ -664,9 +664,9 @@
         <span class="k">private</span> <span class="k">void</span> <span class="n">ReportStatus</span><span class="p">(</span><span class="n">CoordinationStatus</span> <span class="n">status</span><span class="p">)</span>
         <span class="p">{</span>
             <span class="c1">//如果状态从未报告过，就报告它；否则忽略它
-</span><span class="c1"></span>            <span class="k">if</span> <span class="p">(</span><span class="n">Interlocked</span><span class="p">.</span><span class="n">Exchange</span><span class="p">(</span><span class="k">ref</span> <span class="n">_statusReported</span><span class="p">,</span> <span class="m">1</span><span class="p">)</span> <span class="p">==</span> <span class="m">0</span><span class="p">)</span>
+</span><span class="c1"></span>            <span class="k">if</span> <span class="p">(</span><span class="n">Interlocked</span><span class="p">.</span><span class="n">Exchange</span><span class="p">(</span><span class="k">ref</span> <span class="m">_</span><span class="n">statusReported</span><span class="p">,</span> <span class="m">1</span><span class="p">)</span> <span class="p">==</span> <span class="m">0</span><span class="p">)</span>
             <span class="p">{</span>
-                <span class="n">_callback</span><span class="p">(</span><span class="n">status</span><span class="p">);</span>
+                <span class="m">_</span><span class="n">callback</span><span class="p">(</span><span class="n">status</span><span class="p">);</span>
             <span class="p">}</span>
         <span class="p">}</span>
     <span class="p">}</span>
@@ -674,7 +674,7 @@
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -692,7 +692,7 @@
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-C#" data-lang="C#">        <span class="k">static</span> <span class="k">void</span> <span class="n">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+<pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#">        <span class="k">static</span> <span class="k">void</span> <span class="n">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
         <span class="p">{</span>
             <span class="c1">//调用测试方法
 </span><span class="c1"></span>            <span class="k">new</span> <span class="n">InterlockedTest</span><span class="p">().</span><span class="n">Do</span><span class="p">();</span>
@@ -727,7 +727,7 @@
 所谓<strong>自旋锁（spin lock）</strong>，其实就是在多线程的处理中，一个线程暂时“原地打转”，以免跑去跟另外一个线程竞争资源。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -753,18 +753,18 @@
 </span><span class="lnt">24
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-C#" data-lang="C#">    <span class="c1">/// &lt;summary&gt;
+<pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#">    <span class="c1">/// &lt;summary&gt;
 </span><span class="c1"></span>    <span class="c1">/// 定义一个简单的自旋锁
 </span><span class="c1"></span>    <span class="c1">/// &lt;/summary&gt;
 </span><span class="c1"></span>    <span class="k">public</span> <span class="k">class</span> <span class="nc">SpinLockTest</span>
     <span class="p">{</span>
-        <span class="k">private</span> <span class="kt">int</span> <span class="n">_isInUse</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+        <span class="k">private</span> <span class="kt">int</span> <span class="m">_</span><span class="n">isInUse</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
 
         <span class="k">public</span> <span class="k">void</span> <span class="n">Enter</span><span class="p">()</span>
         <span class="p">{</span>
             <span class="k">while</span> <span class="p">(</span><span class="k">true</span><span class="p">)</span>
             <span class="p">{</span>
-                <span class="k">if</span> <span class="p">(</span><span class="n">Interlocked</span><span class="p">.</span><span class="n">Exchange</span><span class="p">(</span><span class="k">ref</span> <span class="n">_isInUse</span><span class="p">,</span> <span class="m">1</span><span class="p">)</span> <span class="p">==</span> <span class="m">0</span><span class="p">)</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">Interlocked</span><span class="p">.</span><span class="n">Exchange</span><span class="p">(</span><span class="k">ref</span> <span class="m">_</span><span class="n">isInUse</span><span class="p">,</span> <span class="m">1</span><span class="p">)</span> <span class="p">==</span> <span class="m">0</span><span class="p">)</span>
                 <span class="p">{</span>
                     <span class="k">return</span><span class="p">;</span>
                 <span class="p">}</span>
@@ -774,14 +774,14 @@
 
         <span class="k">public</span> <span class="k">void</span> <span class="n">Leave</span><span class="p">()</span>
         <span class="p">{</span>
-            <span class="n">Interlocked</span><span class="p">.</span><span class="n">Exchange</span><span class="p">(</span><span class="k">ref</span> <span class="n">_isInUse</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+            <span class="n">Interlocked</span><span class="p">.</span><span class="n">Exchange</span><span class="p">(</span><span class="k">ref</span> <span class="m">_</span><span class="n">isInUse</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
         <span class="p">}</span>
     <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -812,13 +812,13 @@
 </span><span class="lnt">29
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-C#" data-lang="C#">    <span class="c1">/// &lt;summary&gt;
+<pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#">    <span class="c1">/// &lt;summary&gt;
 </span><span class="c1"></span>    <span class="c1">/// 使用自旋锁
 </span><span class="c1"></span>    <span class="c1">/// &lt;/summary&gt;
 </span><span class="c1"></span>    <span class="k">public</span> <span class="k">class</span> <span class="nc">MySpinLock</span>
     <span class="p">{</span>
-        <span class="k">private</span> <span class="kt">int</span> <span class="n">_count</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
-        <span class="k">private</span> <span class="k">readonly</span> <span class="n">SpinLockTest</span> <span class="n">_spinLockTest</span> <span class="p">=</span> <span class="k">new</span> <span class="n">SpinLockTest</span><span class="p">();</span>
+        <span class="k">private</span> <span class="kt">int</span> <span class="m">_</span><span class="n">count</span> <span class="p">=</span> <span class="m">0</span><span class="p">;</span>
+        <span class="k">private</span> <span class="k">readonly</span> <span class="n">SpinLockTest</span> <span class="m">_</span><span class="n">spinLockTest</span> <span class="p">=</span> <span class="k">new</span> <span class="n">SpinLockTest</span><span class="p">();</span>
         <span class="k">public</span> <span class="k">void</span> <span class="n">Do</span><span class="p">()</span>
         <span class="p">{</span>
             <span class="n">Task</span><span class="p">.</span><span class="n">Run</span><span class="p">(()</span> <span class="p">=&gt;</span>
@@ -828,10 +828,10 @@
                 <span class="p">{</span>
                     <span class="kt">var</span> <span class="n">th</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="p">(()</span> <span class="p">=&gt;</span>
                     <span class="p">{</span>
-                        <span class="n">_spinLockTest</span><span class="p">.</span><span class="n">Enter</span><span class="p">();</span>
+                        <span class="m">_</span><span class="n">spinLockTest</span><span class="p">.</span><span class="n">Enter</span><span class="p">();</span>
                         <span class="c1">//一次只有一个线程能访问当前代码块
-</span><span class="c1"></span>                        <span class="n">_count</span><span class="p">++;</span>                        
-                        <span class="n">_spinLockTest</span><span class="p">.</span><span class="n">Leave</span><span class="p">();</span>
+</span><span class="c1"></span>                        <span class="m">_</span><span class="n">count</span><span class="p">++;</span>                        
+                        <span class="m">_</span><span class="n">spinLockTest</span><span class="p">.</span><span class="n">Leave</span><span class="p">();</span>
                     <span class="p">});</span>
                     <span class="n">th</span><span class="p">.</span><span class="n">Start</span><span class="p">();</span>
                 <span class="p">}</span>
@@ -859,7 +859,7 @@
 </blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -886,7 +886,7 @@
 </span><span class="lnt">25
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-C#" data-lang="C#">        <span class="c1">/// &lt;summary&gt;
+<pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#">        <span class="c1">/// &lt;summary&gt;
 </span><span class="c1"></span>        <span class="c1">/// 获取两个数的最大值
 </span><span class="c1"></span>        <span class="c1">/// &lt;/summary&gt;
 </span><span class="c1"></span>        <span class="k">public</span> <span class="k">static</span> <span class="kt">int</span> <span class="n">Max</span><span class="p">(</span><span class="k">ref</span> <span class="kt">int</span> <span class="n">target</span><span class="p">,</span> <span class="kt">int</span> <span class="k">value</span><span class="p">)</span>
@@ -924,7 +924,7 @@
 <p>《CLR via C#》的作者在书中写道，自己在大量的代码中都运用了这个模式，还专门写了一个泛型的<code>Morph</code>来封装了这个模式。如下🔻</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -940,7 +940,7 @@
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-C#" data-lang="C#">        <span class="k">public</span> <span class="k">delegate</span> <span class="kt">int</span> <span class="n">Morpher</span><span class="p">&lt;</span><span class="n">TResult</span><span class="p">,</span> <span class="n">TArgument</span><span class="p">&gt;(</span><span class="kt">int</span> <span class="n">startValue</span><span class="p">,</span> <span class="n">TArgument</span> <span class="n">argument</span><span class="p">,</span> <span class="k">out</span> <span class="n">TResult</span> <span class="n">morphResult</span><span class="p">);</span>
+<pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#">        <span class="k">public</span> <span class="k">delegate</span> <span class="kt">int</span> <span class="n">Morpher</span><span class="p">&lt;</span><span class="n">TResult</span><span class="p">,</span> <span class="n">TArgument</span><span class="p">&gt;(</span><span class="kt">int</span> <span class="n">startValue</span><span class="p">,</span> <span class="n">TArgument</span> <span class="n">argument</span><span class="p">,</span> <span class="k">out</span> <span class="n">TResult</span> <span class="n">morphResult</span><span class="p">);</span>
         <span class="k">public</span> <span class="k">static</span> <span class="n">TResult</span> <span class="n">Morph</span><span class="p">&lt;</span><span class="n">TResult</span><span class="p">,</span> <span class="n">TArgument</span><span class="p">&gt;(</span><span class="k">ref</span> <span class="kt">int</span> <span class="n">target</span><span class="p">,</span> <span class="n">TArgument</span> <span class="n">argument</span><span class="p">,</span> <span class="n">Morpher</span><span class="p">&lt;</span><span class="n">TResult</span><span class="p">,</span> <span class="n">TArgument</span><span class="p">&gt;</span> <span class="n">morpher</span><span class="p">)</span>
         <span class="p">{</span>
             <span class="n">TResult</span> <span class="n">morphResult</span><span class="p">;</span>
@@ -958,7 +958,7 @@
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -978,7 +978,7 @@
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-C#" data-lang="C#">        <span class="k">static</span> <span class="k">void</span> <span class="n">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
+<pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#">        <span class="k">static</span> <span class="k">void</span> <span class="n">Main</span><span class="p">(</span><span class="kt">string</span><span class="p">[]</span> <span class="n">args</span><span class="p">)</span>
         <span class="p">{</span>
             <span class="c1">//调用测试方法，同样已Max为例
 </span><span class="c1"></span>            <span class="kt">int</span> <span class="n">a</span> <span class="p">=</span> <span class="m">2</span><span class="p">;</span>
@@ -1060,10 +1060,10 @@
   
 
   <span class="copyright-year">
-    &copy; 
-    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>九零</span>
-    <span>| Powered by<a class="hexo-link" href="https://gohugo.io"> Hugo</a></span>
-    <span>| Theme -<a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even"> Even</a></span>    
+    
+    <span><a class="hexo-link" href="https://jiuling.me"><img src="https://img.shields.io/badge/%C2%A9%202021-%E4%B9%9D%E9%9B%B6-green"></a></span>
+    <span><a class="hexo-link" href="https://gohugo.io"><img src="https://img.shields.io/badge/Powered%20by-Hugo-important"></a></span>
+    <span><a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even"><img src="https://img.shields.io/badge/Theme-Even-9cf"></a></span>    
   </span>
 </div>
 

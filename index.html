@@ -148,6 +148,31 @@
 
     <article class="post">
   <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/%E4%B8%80%E6%AC%A1httpwebrequest.abort%E5%BC%95%E8%B5%B7%E7%9A%84%E7%BA%BF%E4%B8%8Abug/">一次HttpWebRequest.Abort()引起的线上BUG</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2021-07-29 </span>
+      <div class="post-category">
+          <a href="/categories/%E9%82%A3%E4%BA%9B%E5%B9%B4%E9%87%8C%E7%9A%84%E9%82%A3%E4%BA%9B%E5%9D%91/"> 那些年里的那些坑 </a>
+          </div>
+        <span class="more-meta"> 约 1723 字 </span>
+        <span class="more-meta"> 预计阅读 4 分钟 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      <h1 id="背景">背景</h1>
+<p>用了那么多年的<code>HttpWebRequest</code>，没想到今天就被这么狠狠的坑了一波。<br>
+直接放代码，来看看今天的罪魁祸首<code>HttpWebRequest.Abort()</code>方法。</p>
+    </div>
+    <div class="read-more">
+      <a href="/post/%E4%B8%80%E6%AC%A1httpwebrequest.abort%E5%BC%95%E8%B5%B7%E7%9A%84%E7%BA%BF%E4%B8%8Abug/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/%E8%81%8A%E8%81%8Anavicat%E9%80%A0%E6%88%90%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98/">聊聊Navicat造成的数据库死锁问题</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2021-07-23 </span>
@@ -350,59 +375,6 @@
     </div>
     <div class="read-more">
       <a href="/post/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/c-%E4%BD%BF%E7%94%A8decimal-tryparse%E8%BD%AC%E6%8D%A2%E6%97%B6%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E6%9C%89%E9%80%97%E5%8F%B7%E7%9A%84%E5%9D%91/">C#使用decimal TryParse转换时，字符串中有逗号的坑</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2021-02-06 </span>
-      <div class="post-category">
-          <a href="/categories/%E9%82%A3%E4%BA%9B%E5%B9%B4%E9%87%8C%E7%9A%84%E9%82%A3%E4%BA%9B%E5%9D%91/"> 那些年里的那些坑 </a>
-          </div>
-        <span class="more-meta"> 约 1360 字 </span>
-        <span class="more-meta"> 预计阅读 3 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      <h2 id="起源">起源</h2>
-<p>一切都要从那个线上bug说起，执行<code>decimal.TryParse</code>时程序并没有按照预期输出结果💔💔💔</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="kt">string</span> <span class="n">input</span> <span class="p">=</span> <span class="s">&#34;1,2,3&#34;</span><span class="p">;</span>
-<span class="kt">decimal</span> <span class="n">output</span><span class="p">;</span>
-<span class="k">if</span> <span class="p">(</span><span class="kt">decimal</span><span class="p">.</span><span class="n">TryParse</span><span class="p">(</span><span class="n">input</span><span class="p">,</span> <span class="k">out</span> <span class="n">output</span><span class="p">))</span>
-<span class="p">{</span>
-    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&#34;{output}&#34;</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="k">else</span>
-<span class="p">{</span>
-    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&#34;Unable to decimal {input}&#34;</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="c1">//这里意外的输出了 123
-</span></code></pre></td></tr></table>
-</div>
-</div>
-    </div>
-    <div class="read-more">
-      <a href="/post/c-%E4%BD%BF%E7%94%A8decimal-tryparse%E8%BD%AC%E6%8D%A2%E6%97%B6%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E6%9C%89%E9%80%97%E5%8F%B7%E7%9A%84%E5%9D%91/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

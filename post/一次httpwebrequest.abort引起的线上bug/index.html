@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>一次HttpWebRequest.Abort()引起的线上BUG - 码术-一个皇马球迷的博客而已</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="九零" /><meta name="description" content="背景 用了那么多年的HttpWebRequest，没想到今天就被这么狠狠的坑了一波。
+直接放代码，来看看今天的罪魁祸首HttpWebRequest.Abort()方法。
+" /><meta name="keywords" content="码术" />
+
+
+
+
+
+<meta name="generator" content="Hugo 0.86.0 with theme even" />
+
+
+<link rel="canonical" href="https://jiuling.me/post/%E4%B8%80%E6%AC%A1httpwebrequest.abort%E5%BC%95%E8%B5%B7%E7%9A%84%E7%BA%BF%E4%B8%8Abug/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.b5a744db6de49a86cadafb3b70f555ab443f83c307a483402259e94726b045ff.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" /><meta property="og:title" content="一次HttpWebRequest.Abort()引起的线上BUG" />
+<meta property="og:description" content="背景
+用了那么多年的HttpWebRequest，没想到今天就被这么狠狠的坑了一波。
+直接放代码，来看看今天的罪魁祸首HttpWebRequest.Abort()方法。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://jiuling.me/post/%E4%B8%80%E6%AC%A1httpwebrequest.abort%E5%BC%95%E8%B5%B7%E7%9A%84%E7%BA%BF%E4%B8%8Abug/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-07-29T20:55:44+08:00" />
+<meta property="article:modified_time" content="2021-07-29T20:55:44+08:00" />
+
+<meta itemprop="name" content="一次HttpWebRequest.Abort()引起的线上BUG">
+<meta itemprop="description" content="背景
+用了那么多年的HttpWebRequest，没想到今天就被这么狠狠的坑了一波。
+直接放代码，来看看今天的罪魁祸首HttpWebRequest.Abort()方法。"><meta itemprop="datePublished" content="2021-07-29T20:55:44+08:00" />
+<meta itemprop="dateModified" content="2021-07-29T20:55:44+08:00" />
+<meta itemprop="wordCount" content="1723">
+<meta itemprop="keywords" content="C#," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="一次HttpWebRequest.Abort()引起的线上BUG"/>
+<meta name="twitter:description" content="背景
+用了那么多年的HttpWebRequest，没想到今天就被这么狠狠的坑了一波。
+直接放代码，来看看今天的罪魁祸首HttpWebRequest.Abort()方法。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">码术</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/post/">
+        <li class="mobile-menu-item">时间线</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">码术</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li style="display:inline-block;margin-right:10px;">
+      <input type="search" class="docsearch-input" placeholder="搜索" />
+    </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">时间线</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about">关于</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">一次HttpWebRequest.Abort()引起的线上BUG</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-07-29 </span>
+        <div class="post-category">
+            <a href="/categories/%E9%82%A3%E4%BA%9B%E5%B9%B4%E9%87%8C%E7%9A%84%E9%82%A3%E4%BA%9B%E5%9D%91/"> 那些年里的那些坑 </a>
+            </div>
+          <span class="more-meta"> 约 1723 字 </span>
+          <span class="more-meta"> 预计阅读 4 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#背景">背景</a></li>
+    <li><a href="#问题分析">问题分析</a></li>
+    <li><a href="#问题复现">问题复现</a></li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="背景">背景</h1>
+<p>用了那么多年的<code>HttpWebRequest</code>，没想到今天就被这么狠狠的坑了一波。<br>
+直接放代码，来看看今天的罪魁祸首<code>HttpWebRequest.Abort()</code>方法。</p>
+<p><strong>本文基于<code>.NET4.5</code>框架</strong></p>
+<p>在实际项目中，<code>Http</code>请求部分用的异步接口<code>IAsyncResult</code>实现的，但是为了缩短篇幅，这里改为<code>Task</code>来举例。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="n">HttpWebRequest</span> <span class="n">request</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+<span class="n">Task</span><span class="p">.</span><span class="n">Run</span><span class="p">(()</span> <span class="p">=&gt;</span>
+<span class="p">{</span>
+    <span class="k">try</span>
+    <span class="p">{</span>
+        <span class="n">request</span> <span class="p">=</span> <span class="p">(</span><span class="n">HttpWebRequest</span><span class="p">)</span><span class="n">WebRequest</span><span class="p">.</span><span class="n">Create</span><span class="p">(</span><span class="s">&#34;http://www.jiuling.com&#34;</span><span class="p">);</span>
+        <span class="k">using</span> <span class="p">(</span><span class="n">WebResponse</span> <span class="n">response</span> <span class="p">=</span> <span class="n">request</span><span class="p">.</span><span class="n">GetResponse</span><span class="p">())</span>
+        <span class="p">{</span>
+            <span class="c1">//模拟一个耗时请求
+</span><span class="c1"></span>            <span class="n">Thread</span><span class="p">.</span><span class="n">Sleep</span><span class="p">(</span><span class="m">10</span> <span class="p">*</span> <span class="m">000</span><span class="p">);</span>
+            <span class="k">using</span> <span class="p">(</span><span class="n">Stream</span> <span class="n">stream</span> <span class="p">=</span> <span class="n">response</span><span class="p">.</span><span class="n">GetResponseStream</span><span class="p">())</span>
+            <span class="p">{</span>
+                <span class="k">using</span> <span class="p">(</span><span class="n">StreamReader</span> <span class="n">streamReader</span> <span class="p">=</span> <span class="k">new</span> <span class="n">StreamReader</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">Encoding</span><span class="p">.</span><span class="n">UTF8</span><span class="p">))</span>
+                <span class="p">{</span>
+                    <span class="kt">string</span> <span class="n">html</span> <span class="p">=</span> <span class="n">streamReader</span><span class="p">.</span><span class="n">ReadToEnd</span><span class="p">();</span>
+                    <span class="c1">//Do succeed callback
+</span><span class="c1"></span>                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">catch</span> <span class="p">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;请求失败咯，准备回调&#34;</span><span class="p">);</span>
+        <span class="c1">//Do failing callback
+</span><span class="c1"></span>    <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="c1">//模拟一个等待超时的情况
+</span><span class="c1"></span><span class="n">Thread</span><span class="p">.</span><span class="n">Sleep</span><span class="p">(</span><span class="m">5</span> <span class="p">*</span> <span class="m">1000</span><span class="p">);</span>
+<span class="n">request</span><span class="p">.</span><span class="n">Abort</span><span class="p">();</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;请求超时咯，准备回调&#34;</span><span class="p">);</span>
+<span class="c1">//Do failing callback
+</span></code></pre></td></tr></table>
+</div>
+</div><p>上面的代码主要做了这么几件事：</p>
+<ul>
+<li>请求成功后，调用一个成功的回调</li>
+<li>请求出现<strong>异常</strong>时，调用一个<strong>失败</strong>的回调</li>
+<li>请求出现<strong>超时</strong>时，调用一个<strong>失败</strong>的回调</li>
+</ul>
+<p>今天出问题的订单就是收到了<strong>两次失败回调</strong>。</p>
+<h1 id="问题分析">问题分析</h1>
+<p>由于两次的失败回调间隔很短（大概20ms的样子），所以我当时直接排除了<strong>代码进行了两次<code>Http</code>请求</strong>。结合我们的业务代码，当时猜想<strong>应该是有个地方捕获了异常并进行了处理（失败回调），接着又将异常抛出，导致外层代码也处理了一次失败回调</strong><br>
+经过层层排查，后面确定了我的猜想失败了。导致问题的原因是由于<code>request.Abort()</code>引发了一次<code>WebException</code>异常，从而使得代码进行了两次回调（上面代码中注释的部分）</p>
+<p>虽然我以前经常用<code>HttpWebRequest</code>，但是对<code>Abort</code>方法的认知却是少之又少，甚至可以说是没怎么用过。今天的问题刚好是这个方法引起的，又是自己的知识盲区，那么刚好研究下这个坑货。😎😎</p>
+<p>先来看看<a href="https://docs.microsoft.com/zh-cn/dotnet/api/system.net.httpwebrequest.abort?view=netframework-4.5&amp;f1url=%3FappId%3DDev16IDEF1%26l%3DZH-CN%26k%3Dk(System.Net.HttpWebRequest.Abort);k(TargetFrameworkMoniker-.NETFramework,Version%253Dv4.5);k(DevLang-csharp)%26rd%3Dtrue"><code>MSDN</code></a>上的说明：</p>
+<blockquote>
+<p>哦，上帝啊，这该死的机翻，这可是<code>MS</code>的官网啊，他们怎么能这样呢🐶🐶<br>
+<img src="https://i.loli.net/2021/07/29/1PAEnDxRIpJQ5US.png" alt="Abort.png"></p>
+</blockquote>
+<p>翻译成人话就是：<code>Abort</code>方法用于取消对资源的请求，调用<code>Abort</code>方法后，如果再调用<code>GetResponse</code>、<code>BeginGetResponse</code>、<code>EndGetResponse</code>、<code>GetRequestStream</code>、<code>BeginGetRequestStream</code>、<code>EndGetRequestStream</code>方法，将会引发一个<code>WebException</code>异常，并且该异常的<code>Status</code>值为<code>RequestCanceled</code>。</p>
+<p>原来<code>MSDN</code>写的清清楚楚明明白白。<br>
+我们并不是被<code>Abort</code>方法坑了，写上面那段代码的人对这个方法不熟悉，埋了一个坑；今天排查问题时，我对这个方法也不熟悉，导致没有第一时间发现问题。该反思、该反思！</p>
+<h1 id="问题复现">问题复现</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C#" data-lang="C#"><span class="n">HttpWebRequest</span> <span class="n">request</span> <span class="p">=</span> <span class="k">null</span><span class="p">;</span>
+<span class="n">Task</span><span class="p">.</span><span class="n">Run</span><span class="p">(()</span> <span class="p">=&gt;</span>
+<span class="p">{</span>
+    <span class="k">try</span>
+    <span class="p">{</span>
+        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;准备发起请求&#34;</span><span class="p">);</span>
+        <span class="n">request</span> <span class="p">=</span> <span class="p">(</span><span class="n">HttpWebRequest</span><span class="p">)</span><span class="n">WebRequest</span><span class="p">.</span><span class="n">Create</span><span class="p">(</span><span class="s">&#34;http://www.jiuling.com&#34;</span><span class="p">);</span>
+        <span class="k">using</span> <span class="p">(</span><span class="n">WebResponse</span> <span class="n">response</span> <span class="p">=</span> <span class="n">request</span><span class="p">.</span><span class="n">GetResponse</span><span class="p">())</span>
+        <span class="p">{</span>
+            <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;GetResponse&#34;</span><span class="p">);</span>
+            <span class="k">using</span> <span class="p">(</span><span class="n">Stream</span> <span class="n">stream</span> <span class="p">=</span> <span class="n">response</span><span class="p">.</span><span class="n">GetResponseStream</span><span class="p">())</span>
+            <span class="p">{</span>
+                <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;GetResponseStream&#34;</span><span class="p">);</span>
+                <span class="k">using</span> <span class="p">(</span><span class="n">StreamReader</span> <span class="n">streamReader</span> <span class="p">=</span> <span class="k">new</span> <span class="n">StreamReader</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">Encoding</span><span class="p">.</span><span class="n">UTF8</span><span class="p">))</span>
+                <span class="p">{</span>
+                    <span class="c1">//假装这次网络请求超级慢~~
+</span><span class="c1"></span>                    <span class="n">Thread</span><span class="p">.</span><span class="n">Sleep</span><span class="p">(</span><span class="m">5000</span><span class="p">);</span>
+
+                    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;ReadData&#34;</span><span class="p">);</span>
+                    <span class="kt">string</span> <span class="n">html</span> <span class="p">=</span> <span class="n">streamReader</span><span class="p">.</span><span class="n">ReadToEnd</span><span class="p">();</span>
+
+                    <span class="c1">//如果代码执行到这里的时候，调用Abort方法则不会引发异常
+</span><span class="c1"></span>                    <span class="c1">//Thread.Sleep(5000);
+</span><span class="c1"></span>                    <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&#34;服务器返回:{html}&#34;</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">catch</span> <span class="p">(</span><span class="n">WebException</span> <span class="n">ex</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">$&#34;出错了，状态：{ex.Status}，错误信息：{ex.Message}&#34;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+<span class="n">Thread</span><span class="p">.</span><span class="n">Sleep</span><span class="p">(</span><span class="m">2</span> <span class="p">*</span> <span class="m">1000</span><span class="p">);</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;准备Abort&#34;</span><span class="p">);</span>
+<span class="n">request</span><span class="p">.</span><span class="n">Abort</span><span class="p">();</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&#34;Abort完成&#34;</span><span class="p">);</span>
+
+<span class="c1">// 代码输出：
+</span><span class="c1"></span>
+<span class="c1">// 准备发起请求
+</span><span class="c1">// GetResponse
+</span><span class="c1">// GetResponseStream
+</span><span class="c1">// 准备Abort
+</span><span class="c1">// Abort完成
+</span><span class="c1">// ReadData
+</span><span class="c1">// 出错了，状态：RequestCanceled，错误信息：请求被中止: 请求已被取消。
+</span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>这个例子中，调用<code>Abort</code>的时候虽然服务器已经响应，但是实际上执行<code>streamReader.ReadToEnd()</code>方法的时候才会去读取数据流，因此依然会引发一个<code>WebException</code>异常。</p>
+</blockquote>
+<h1 id="总结">总结</h1>
+<p>总结一下就是：</p>
+<ul>
+<li>当网络请求未完成时，如果调用<code>Abort</code>方法，则会引发一个<code>WebException</code>异常</li>
+<li>遇到不懂的技术点、不懂的代码，不要用在实际项目中（类似已经出过好多事了！！）</li>
+<li>好好学习天天向上</li>
+<li>编不下去了</li>
+</ul>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">九零</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2021-07-29
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/c/">C#</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/%E5%AE%9E%E7%94%A8%E7%BD%91%E7%AB%99%E5%92%8C%E9%AB%98%E6%95%88%E5%B0%8F%E5%B7%A5%E5%85%B7%E6%B1%87%E6%80%BB%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">冷门网站和工具汇总（不定期更新）</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/%E8%81%8A%E8%81%8Anavicat%E9%80%A0%E6%88%90%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98/">
+            <span class="next-text nav-default">聊聊Navicat造成的数据库死锁问题</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+</div>
+
+<div class="copyright">
+  
+
+  <span class="copyright-year">
+    
+    <span><a class="hexo-link" href="https://jiuling.me"><img src="https://img.shields.io/badge/%C2%A9%202021-%E4%B9%9D%E9%9B%B6-green"></a></span>
+    <span><a class="hexo-link" href="https://gohugo.io"><img src="https://img.shields.io/badge/Powered%20by-Hugo-important"></a></span>
+    <span><a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even"><img src="https://img.shields.io/badge/Theme-Even-9cf"></a></span>    
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script>
+    docsearch({
+    apiKey: "da84c0023d923bc94c9a393003235106",
+    indexName: "jiuling.me",
+    appId: "7I30FB6OZ7",
+    inputSelector: '.docsearch-input',
+    debug: false,
+    });
+</script>
+</body>
+</html>

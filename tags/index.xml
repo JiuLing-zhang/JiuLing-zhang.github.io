@@ -6,7 +6,16 @@
     <description>Recent content in Tags on 码术-一个皇马球迷的博客而已</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 29 Jul 2021 20:55:44 +0800</lastBuildDate><atom:link href="https://jiuling.me/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 11 Aug 2021 23:30:29 +0800</lastBuildDate><atom:link href="https://jiuling.me/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SQL Server</title>
+      <link>https://jiuling.me/tags/sql-server/</link>
+      <pubDate>Wed, 11 Aug 2021 23:30:29 +0800</pubDate>
+      
+      <guid>https://jiuling.me/tags/sql-server/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>C#</title>
       <link>https://jiuling.me/tags/c#/</link>
@@ -22,15 +31,6 @@
       <pubDate>Fri, 23 Jul 2021 19:44:51 +0800</pubDate>
       
       <guid>https://jiuling.me/tags/navicat/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>SQL Server</title>
-      <link>https://jiuling.me/tags/sql-server/</link>
-      <pubDate>Fri, 23 Jul 2021 19:44:51 +0800</pubDate>
-      
-      <guid>https://jiuling.me/tags/sql-server/</guid>
       <description></description>
     </item>
     

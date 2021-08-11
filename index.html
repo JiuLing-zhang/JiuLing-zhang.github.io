@@ -148,6 +148,60 @@
 
     <article class="post">
   <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/post/sql-server%E6%9F%A5%E8%AF%A2%E7%94%A8%E9%80%97%E5%8F%B7%E5%88%86%E9%9A%94%E7%9A%84%E6%95%B0%E6%8D%AE/">SQL Server查询用逗号分隔的数据</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2021-08-11 </span>
+      <div class="post-category">
+          <a href="/categories/sql-server/"> SQL Server </a>
+          </div>
+        <span class="more-meta"> 约 288 字 </span>
+        <span class="more-meta"> 预计阅读 1 分钟 </span>
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      <h1 id="需求">需求</h1>
+<p>不同的商品使用逗号分隔保存，现在要求输入指定的商品名称，能够查询到包含该商品的列。</p>
+<ul>
+<li>输入 <strong>K701</strong> 返回第1、2行</li>
+<li>输入 <strong>K702</strong> 返回第2、4行</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>商品</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>K701</td>
+</tr>
+<tr>
+<td>2</td>
+<td>K701,K702</td>
+</tr>
+<tr>
+<td>3</td>
+<td>K701B,K701C</td>
+</tr>
+<tr>
+<td>4</td>
+<td>2K701,K702</td>
+</tr>
+</tbody>
+</table>
+    </div>
+    <div class="read-more">
+      <a href="/post/sql-server%E6%9F%A5%E8%AF%A2%E7%94%A8%E9%80%97%E5%8F%B7%E5%88%86%E9%9A%94%E7%9A%84%E6%95%B0%E6%8D%AE/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    <article class="post">
+  <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/post/%E4%B8%80%E6%AC%A1httpwebrequest.abort%E5%BC%95%E8%B5%B7%E7%9A%84%E7%BA%BF%E4%B8%8Abug/">一次HttpWebRequest.Abort()引起的线上BUG</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2021-07-29 </span>
@@ -348,33 +402,6 @@
     </div>
     <div class="read-more">
       <a href="/post/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/post/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/">设计模式-简单工厂模式</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2021-02-18 </span>
-      <div class="post-category">
-          <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"> 设计模式 </a>
-          </div>
-        <span class="more-meta"> 约 963 字 </span>
-        <span class="more-meta"> 预计阅读 2 分钟 </span>
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      <p><strong>定义</strong> 用单独一个类来创建具体实例的过程。<br>
-<strong>类型</strong> 创建型模式<br>
-<strong>特点</strong> 使用工厂可以减少代码的耦合性，使代码的可维护性变高。遇到新的需求时，只要新增一个功能的实现，然后通过工厂将实例构建出来即可。<br>
-<strong>举例</strong> 实现两个数字的计算，运用工厂分别创建计算加、减、乘、除的不同实例。</p>
-<p>本文以C#为例，先来看类图🔻</p>
-    </div>
-    <div class="read-more">
-      <a href="/post/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
